@@ -109,8 +109,6 @@ public class newEquipmentActivity extends AppCompatActivity {
             }
         });
 
-
-
         viewHolder.iv_newPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

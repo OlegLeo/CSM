@@ -32,7 +32,7 @@ public class newEquipmentActivity extends AppCompatActivity {
     private static final int PICK_REQUEST = 1;
     private StorageTask uploadTask;
     private Uri uri_image;
-    private String name = "", brand = "", description = "", color = "", photo = "";
+    private String name = "", brand = "", description = "", color = "", photo = "", roomId = "", assign = "", category = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +44,10 @@ public class newEquipmentActivity extends AppCompatActivity {
         viewHolder.et_newBrand = findViewById(R.id.et_newBrand);
         viewHolder.et_newDescription = findViewById(R.id.et_newDescription);
         viewHolder.et_newColor = findViewById(R.id.et_newColor);
+        viewHolder.et_newRoomId = findViewById(R.id.et_newRoomId);
+        viewHolder.et_newAssign = findViewById(R.id.et_newAssign);
+        viewHolder.et_newCategory = findViewById(R.id.et_newCategory);
+
         viewHolder.bt_newAdd = findViewById(R.id.bt_newAdd);
         viewHolder.bt_newBack = findViewById(R.id.bt_newBack);
 
@@ -55,6 +59,9 @@ public class newEquipmentActivity extends AppCompatActivity {
                 brand = viewHolder.et_newBrand.getText().toString();
                 description = viewHolder.et_newDescription.getText().toString();
                 color = viewHolder.et_newColor.getText().toString();
+                roomId = viewHolder.et_newRoomId.getText().toString();
+                assign = viewHolder.et_newAssign.getText().toString();
+                category = viewHolder.et_newCategory.getText().toString();
                 photo = "";
 
 //  --------->>>>           // VERIFY IF THE INPUTS ARE EMPTY
@@ -76,7 +83,7 @@ public class newEquipmentActivity extends AppCompatActivity {
 
 
                                 CollectionReference reference = FirebaseFirestore.getInstance().collection("Equipments");
-                                reference.add(new Equipments(name, brand, description, color, photo));
+                                reference.add(new Equipments(name, brand, description, color, photo,roomId, assign, category));
                                 Toast.makeText(newEquipmentActivity.this, "Novo equipamento adicionado", Toast.LENGTH_SHORT).show();
                                 clearAll();
                                 finish();
@@ -92,7 +99,7 @@ public class newEquipmentActivity extends AppCompatActivity {
 //  --------->>>>            // IF NO IMG/PHOTO IS SELECTED/UPLOADED BY USER
                         photo = "";
                         CollectionReference reference = FirebaseFirestore.getInstance().collection("Equipments");
-                        reference.add(new Equipments(name, brand, description, color, photo));
+                        reference.add(new Equipments(name, brand, description, color, photo, roomId, assign, category));
                         Toast.makeText(newEquipmentActivity.this, "Novo equipamento adicionado", Toast.LENGTH_SHORT).show();
                         clearAll();
                         finish();
@@ -155,7 +162,7 @@ public class newEquipmentActivity extends AppCompatActivity {
 
     private class ViewHolder{
         ImageView iv_newPhoto;
-        EditText et_newName, et_newBrand, et_newDescription, et_newColor;
+        EditText et_newName, et_newBrand, et_newDescription, et_newColor, et_newRoomId, et_newAssign, et_newCategory;
         Button bt_newBack, bt_newAdd;
     }
     private void clearAll() {
@@ -163,6 +170,9 @@ public class newEquipmentActivity extends AppCompatActivity {
         viewHolder.et_newBrand.setText("");
         viewHolder.et_newDescription.setText("");
         viewHolder.et_newColor.setText("");
+        viewHolder.et_newRoomId.setText("");
+        viewHolder.et_newAssign.setText("");
+        viewHolder.et_newCategory.setText("");
     }
 
 }

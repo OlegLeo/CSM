@@ -52,6 +52,9 @@ public class EquipmentsDataActivity extends AppCompatActivity {
         viewHolder.et_dataBrand = findViewById(R.id.et_dataBrand);
         viewHolder.et_dataDescription = findViewById(R.id.et_dataDescription);
         viewHolder.et_dataColor = findViewById(R.id.et_dataColor);
+        viewHolder.et_dataRoomId = findViewById(R.id.et_dataRoomId);
+        viewHolder.et_dataAssign = findViewById(R.id.et_dataAssign);
+        viewHolder.et_dataCategory = findViewById(R.id.et_dataCategory);
 
         viewHolder.bt_dataBack = findViewById(R.id.bt_dataBack);
         viewHolder.bt_dataEdit = findViewById(R.id.bt_dataEdit);
@@ -74,6 +77,9 @@ public class EquipmentsDataActivity extends AppCompatActivity {
                         viewHolder.et_dataBrand.setText(documentSnapshot.getData().get("brand").toString());
                         viewHolder.et_dataDescription.setText(documentSnapshot.getData().get("description").toString());
                         viewHolder.et_dataColor.setText(documentSnapshot.getData().get("color").toString());
+                        viewHolder.et_dataRoomId.setText(documentSnapshot.getData().get("roomId").toString());
+                        viewHolder.et_dataAssign.setText(documentSnapshot.getData().get("assign").toString());
+                        viewHolder.et_dataCategory.setText(documentSnapshot.getData().get("category").toString());
 
                         try {
                             Picasso.get().load(documentSnapshot.getData().get("photo").toString()).into(viewHolder.iv_dataPhoto);
@@ -112,7 +118,9 @@ public class EquipmentsDataActivity extends AppCompatActivity {
         viewHolder.bt_dataEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                updateEquip();
                 uploadPhoto();
+
                 finish();
             }
         });
@@ -163,7 +171,7 @@ public class EquipmentsDataActivity extends AppCompatActivity {
                         Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
                         while (!uri.isComplete()) ;
                         photo = uri.getResult().toString();
-                        updateEquip();
+                        docRef.update("photo", photo);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -197,7 +205,9 @@ public class EquipmentsDataActivity extends AppCompatActivity {
         docRef.update("brand", viewHolder.et_dataBrand.getText().toString());
         docRef.update("description", viewHolder.et_dataDescription.getText().toString());
         docRef.update("color", viewHolder.et_dataColor.getText().toString());
-        docRef.update("photo", photo);
+        docRef.update("roomId", viewHolder.et_dataRoomId.getText().toString());
+        docRef.update("assign", viewHolder.et_dataAssign.getText().toString());
+        docRef.update("category", viewHolder.et_dataCategory.getText().toString());
 
     }
 
@@ -219,7 +229,7 @@ public class EquipmentsDataActivity extends AppCompatActivity {
 
     private class ViewHolder{
         ImageView iv_dataPhoto;
-        EditText et_dataName, et_dataBrand, et_dataDescription, et_dataColor;
+        EditText et_dataName, et_dataBrand, et_dataDescription, et_dataColor, et_dataRoomId, et_dataAssign, et_dataCategory;
         Button bt_dataBack, bt_dataEdit, bt_dataDelete, bt_dataCancel, bt_dataOk;
     }
 

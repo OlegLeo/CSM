@@ -2,28 +2,29 @@ package com.example.csm;
 
 public class Equipments {
 
-    String documentID, name, brand, description, color, photo, roomsId;
+    String name, brand, description, color, photo, roomId, assign, category;
 
 public Equipments() {
         }
 
-public Equipments( String name, String brand, String description, String color, String photo) {
-        this.documentID = documentID;
+public Equipments( String name, String brand, String description, String color, String photo, String roomId, String assign, String category) {
         this.name = name;
         this.brand = brand;
         this.description = description;
         this.color = color;
         this.photo = photo;
-        this.roomsId = roomsId;
-        }
+        this.roomId = roomId;
+        this.assign = assign;
+        this.category = category;
 
-public String getDocumentID() {
-        return documentID;
         }
-
-public void setDocumentID(String documentID) {
-        this.documentID = documentID;
-        }
+public Equipments( String name, String brand, String description, String color, String photo) {
+        this.name = name;
+        this.brand = brand;
+        this.description = description;
+        this.color = color;
+        this.photo = photo;
+}
 
 public String getName() {
         return name;
@@ -65,11 +66,28 @@ public void setPhoto(String photo) {
         this.photo = photo;
         }
 
-public String getRoomsId() {
-        return roomsId;
+public String getRoomId() {
+        return roomId;
         }
 
-public void setRoomsId(String roomsId) {
-        this.roomsId = roomsId;
+public void setRoomId(String roomId) {
+        this.roomId = roomId;
         }
-        }
+
+public String getAssign() {
+        return assign;
+}
+
+public void setAssign(String assign) {
+        this.assign = assign;
+}
+
+public String getCategory() {
+        return category;
+}
+
+public void setCategory(String category) {
+        this.category = category;
+}
+
+}

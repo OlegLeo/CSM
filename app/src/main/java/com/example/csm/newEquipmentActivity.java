@@ -4,15 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -26,14 +30,22 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class newEquipmentActivity extends AppCompatActivity {
 
     private ViewHolder viewHolder = new ViewHolder();
     private static final int PICK_REQUEST = 1;
     private StorageTask uploadTask;
     private Uri uri_image;
-    private String name = "", brand = "", description = "", color = "", photo = "", roomId = "", assign = "", category = "";
+    private String name = "", brand = "", description = "", color = "", photo = "", roomId = "", assign = "";
 
+    //////////////////////////////////////////////////// SPINNER UPDATE ////////////////////////////////////////////////
+    String newSelectedCategory = "";
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,10 +58,49 @@ public class newEquipmentActivity extends AppCompatActivity {
         viewHolder.et_newColor = findViewById(R.id.et_newColor);
         viewHolder.et_newRoomId = findViewById(R.id.et_newRoomId);
         viewHolder.et_newAssign = findViewById(R.id.et_newAssign);
-        viewHolder.et_newCategory = findViewById(R.id.et_newCategory);
-
         viewHolder.bt_newAdd = findViewById(R.id.bt_newAdd);
         viewHolder.bt_newBack = findViewById(R.id.bt_newBack);
+
+        //////////////////////////////// -----> //  SPINNER UPDATE // <------ // ////////////////////////////////////////
+
+        viewHolder.spinner_newEquipment_category = findViewById(R.id.spinner_newEquipment_category);
+
+
+        //Toast.makeText(EquipmentsDataActivity.this, getCategoryString, Toast.LENGTH_SHORT).show();
+
+        //Creating list for categories
+        List categoryList = new ArrayList();
+
+        categoryList.add("Selecione uma opção");
+        categoryList.add("Computadores");
+        categoryList.add("Monitores");
+        categoryList.add("Periféricos");
+        categoryList.add("Mobiliário");
+        categoryList.add("Outros");
+
+
+        // - POPULATING SPINNER - //
+
+        ArrayAdapter aa = new ArrayAdapter(newEquipmentActivity.this, android.R.layout.simple_spinner_item, categoryList);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        viewHolder.spinner_newEquipment_category.setAdapter(aa);
+
+        viewHolder.spinner_newEquipment_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                newSelectedCategory = categoryList.get(i).toString();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                //Toast.makeText(MainActivity.this, "Nada selecionado", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
         viewHolder.bt_newAdd.setOnClickListener(new View.OnClickListener() {
@@ -61,15 +112,16 @@ public class newEquipmentActivity extends AppCompatActivity {
                 color = viewHolder.et_newColor.getText().toString();
                 roomId = viewHolder.et_newRoomId.getText().toString();
                 assign = viewHolder.et_newAssign.getText().toString();
-                category = viewHolder.et_newCategory.getText().toString();
+                //category = viewHolder.et_newCategory.getText().toString();
                 photo = "";
 
-//  --------->>>>           // VERIFY IF THE INPUTS ARE EMPTY
-                if (name.trim().isEmpty() || brand.trim().isEmpty() || description.trim().isEmpty() || color.trim().isEmpty()) {
+
+//  --------->>>>           // VERIFY IF THE INPUTS ARE EMPTY      ----->>>>>>   //////////////// SPINNER UPDATE VALIDATION //////////////////
+                if (name.trim().isEmpty() || brand.trim().isEmpty() || description.trim().isEmpty() || color.trim().isEmpty() || newSelectedCategory.equals(categoryList.get(0))) {
                     Toast.makeText(newEquipmentActivity.this, "Preencher todos os campos", Toast.LENGTH_SHORT).show();
 
                 } else {
-                //////// END
+                    //////// END
                     StorageReference storageReference = FirebaseStorage.getInstance().getReference("Equipments");
                     if (uri_image != null) {
                         StorageReference fileRef = storageReference.child(System.currentTimeMillis() + "." + getFileExtension(uri_image));
@@ -80,10 +132,9 @@ public class newEquipmentActivity extends AppCompatActivity {
                                 Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
                                 while (!uri.isComplete()) ;
                                 photo = uri.getResult().toString();
-
-
                                 CollectionReference reference = FirebaseFirestore.getInstance().collection("Equipments");
-                                reference.add(new Equipments(name, brand, description, color, photo,roomId, assign, category));
+                                reference.add(new Equipments(name, brand, description, color, photo, roomId, assign, newSelectedCategory)); /// spinner update
+
                                 Toast.makeText(newEquipmentActivity.this, "Novo equipamento adicionado", Toast.LENGTH_SHORT).show();
                                 clearAll();
                                 finish();
@@ -99,7 +150,7 @@ public class newEquipmentActivity extends AppCompatActivity {
 //  --------->>>>            // IF NO IMG/PHOTO IS SELECTED/UPLOADED BY USER
                         photo = "";
                         CollectionReference reference = FirebaseFirestore.getInstance().collection("Equipments");
-                        reference.add(new Equipments(name, brand, description, color, photo, roomId, assign, category));
+                        reference.add(new Equipments(name, brand, description, color, photo, roomId, assign, newSelectedCategory));  /// spinner update
                         Toast.makeText(newEquipmentActivity.this, "Novo equipamento adicionado", Toast.LENGTH_SHORT).show();
                         clearAll();
                         finish();
@@ -115,12 +166,6 @@ public class newEquipmentActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-
-
-
 
 
         viewHolder.iv_newPhoto.setOnClickListener(new View.OnClickListener() {
@@ -147,7 +192,7 @@ public class newEquipmentActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==PICK_REQUEST && resultCode==RESULT_OK && data!=null && data.getData()!=null){
+        if (requestCode == PICK_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             uri_image = data.getData();
             Picasso.get().load(uri_image).into(viewHolder.iv_newPhoto);
         }
@@ -160,11 +205,16 @@ public class newEquipmentActivity extends AppCompatActivity {
     }
 
 
-    private class ViewHolder{
+    private class ViewHolder {
         ImageView iv_newPhoto;
-        EditText et_newName, et_newBrand, et_newDescription, et_newColor, et_newRoomId, et_newAssign, et_newCategory;
+        EditText et_newName, et_newBrand, et_newDescription, et_newColor, et_newRoomId, et_newAssign;
         Button bt_newBack, bt_newAdd;
+
+        // SPINNER UPDATE /// <<<------------------------------------------------------------------------
+        Spinner spinner_newEquipment_category;
+        //////////////////////////////////////////////////////////////////////////////////////////////////
     }
+
     private void clearAll() {
         viewHolder.et_newName.setText("");
         viewHolder.et_newBrand.setText("");
@@ -172,7 +222,7 @@ public class newEquipmentActivity extends AppCompatActivity {
         viewHolder.et_newColor.setText("");
         viewHolder.et_newRoomId.setText("");
         viewHolder.et_newAssign.setText("");
-        viewHolder.et_newCategory.setText("");
+        //viewHolder.et_newCategory.setText("");
     }
 
 }

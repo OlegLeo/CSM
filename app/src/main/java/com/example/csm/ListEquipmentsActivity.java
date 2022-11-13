@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -20,18 +22,89 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ListEquipmentsActivity extends AppCompatActivity {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference equipRef = db.collection("Equipments");
     private EquipmentsAdapter adapter;
     private FloatingActionButton bt_equipmentAdd;
+    Query query;
+    Spinner spinner_category_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_equipments);
         bt_equipmentAdd = findViewById(R.id.bt_equipmentAdd);
+
+
+
+        /////////////////////////////////////////////// SPINNER UPDATE ////////////////////////////////////////
+
+        spinner_category_search = findViewById(R.id.spinner_category_search);
+
+        //query = equipRef.orderBy("name", Query.Direction.ASCENDING);
+
+        //Creating list for categories
+        List categoryList = new ArrayList();
+
+        categoryList.add("Todos");
+        categoryList.add("Computadores");
+        categoryList.add("Monitores");
+        categoryList.add("Periféricos");
+        categoryList.add("Mobiliário");
+        categoryList.add("Outros");
+
+
+
+        // - POPULATING SPINNER - //
+
+        ArrayAdapter aa = new ArrayAdapter(ListEquipmentsActivity.this, android.R.layout.simple_spinner_item, categoryList);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_category_search.setAdapter(aa);
+
+
+        /////////// SPINNER FILTER OF DISPLAY OF EQUIPMENTS /////////////
+
+        spinner_category_search.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if (i == 1) {
+                    SearchForCategory("Computadores");
+                    Toast.makeText(ListEquipmentsActivity.this, String.valueOf(i), Toast.LENGTH_SHORT).show();
+                } else if (i == 2) {
+                    SearchForCategory("Monitores");
+                } else if (i == 3) {
+                    SearchForCategory("Periféricos");
+                }else if (i == 4) {
+                    SearchForCategory("Mobiliário");
+                }else if (i == 5) {
+                    SearchForCategory("Outros");
+                } else {
+                    SearchForAll();
+
+
+                }
+
+            }
+
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+
+        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
         setUpRecyclerView();
+
 
         adapter.setOnItemClickListener(new EquipmentsAdapter.OnItemClickListener() {
             @Override
@@ -52,6 +125,7 @@ public class ListEquipmentsActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
     }
 
     private void setUpRecyclerView() {
@@ -100,30 +174,100 @@ public class ListEquipmentsActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-        private void txtSearch(String str){
-            Query query = equipRef.orderBy("name", Query.Direction.ASCENDING).startAt(str).endAt(str+"~");
-            FirestoreRecyclerOptions<Equipments> options = new FirestoreRecyclerOptions.Builder<Equipments>()
-                    .setQuery(query, Equipments.class).build();
+    private void txtSearch(String str){
+        Query query = equipRef.orderBy("name", Query.Direction.ASCENDING).startAt(str).endAt(str+"~");
+        FirestoreRecyclerOptions<Equipments> options = new FirestoreRecyclerOptions.Builder<Equipments>()
+                .setQuery(query, Equipments.class).build();
 
-            adapter = new EquipmentsAdapter(options);
-            adapter.startListening();
+        adapter = new EquipmentsAdapter(options);
+        adapter.startListening();
 
-            RecyclerView recyclerView = findViewById(R.id.rv_listEquipments);
-            recyclerView.setAdapter(adapter);
+        RecyclerView recyclerView = findViewById(R.id.rv_listEquipments);
+        recyclerView.setAdapter(adapter);
 
-//  --------->>>>             //////////////////////////////// ADICIONAR ISTO PARA DAR ///////////////////////////////////////
-            adapter.setOnItemClickListener(new EquipmentsAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(DocumentSnapshot documentSnapshot, int pos) {
-                    Equipments equipments = documentSnapshot.toObject(Equipments.class);
-                    String path = documentSnapshot.getReference().getPath();
+//  --------->>>>             //////////////////////////////// ADDING ADAPTER ///////////////////////////////////////
+        adapter.setOnItemClickListener(new EquipmentsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int pos) {
+                Equipments equipments = documentSnapshot.toObject(Equipments.class);
+                String path = documentSnapshot.getReference().getPath();
 
-                    Intent i = new Intent(ListEquipmentsActivity.this, EquipmentsDataActivity.class);
-                    i.putExtra("path", path);
-                    startActivity(i);
-                }
-            });
-//  --------->>>>             //////////////////////////////////// FIM ///////////////////////////////////
-        }
+                Intent i = new Intent(ListEquipmentsActivity.this, EquipmentsDataActivity.class);
+                i.putExtra("path", path);
+                startActivity(i);
+            }
+        });
+
+
+//  --------->>>>             //////////////////////////////////// END ///////////////////////////////////
+    }
+
+
+
+    /////////////////////////////////// SEARCHING FOR CATEGORIES ///////////////////////////////////////
+
+    private void SearchForCategory(String category) {
+        query = equipRef.whereEqualTo("category", category);
+        //Query query = equipRef.orderBy("name", Query.Direction.ASCENDING).startAt(str).endAt(str+"~");
+        FirestoreRecyclerOptions<Equipments> options = new FirestoreRecyclerOptions.Builder<Equipments>()
+                .setQuery(query, Equipments.class).build();
+
+        adapter = new EquipmentsAdapter(options);
+        adapter.startListening();
+
+        RecyclerView recyclerView = findViewById(R.id.rv_listEquipments);
+        recyclerView.setAdapter(adapter);
+
+//  --------->>>>             //////////////////////////////// ADDING ADAPTER ///////////////////////////////////////
+        adapter.setOnItemClickListener(new EquipmentsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int pos) {
+                Equipments equipments = documentSnapshot.toObject(Equipments.class);
+                String path = documentSnapshot.getReference().getPath();
+
+                Intent i = new Intent(ListEquipmentsActivity.this, EquipmentsDataActivity.class);
+                i.putExtra("path", path);
+                startActivity(i);
+            }
+        });
+    }
+//  --------->>>>             //////////////////////////////////// END ///////////////////////////////////
+
+
+
+/////////////////////////////////// SEARCHING FOR ALL ///////////////////////////////////////
+
+    private void SearchForAll() {
+        query = equipRef.orderBy("name", Query.Direction.ASCENDING);
+        //Query query = equipRef.orderBy("name", Query.Direction.ASCENDING).startAt(str).endAt(str+"~");
+        FirestoreRecyclerOptions<Equipments> options = new FirestoreRecyclerOptions.Builder<Equipments>()
+                .setQuery(query, Equipments.class).build();
+
+        adapter = new EquipmentsAdapter(options);
+        adapter.startListening();
+
+        RecyclerView recyclerView = findViewById(R.id.rv_listEquipments);
+        recyclerView.setAdapter(adapter);
+
+//  --------->>>>             //////////////////////////////// ADDING ADAPTER ///////////////////////////////////////
+        adapter.setOnItemClickListener(new EquipmentsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int pos) {
+                Equipments equipments = documentSnapshot.toObject(Equipments.class);
+                String path = documentSnapshot.getReference().getPath();
+
+                Intent i = new Intent(ListEquipmentsActivity.this, EquipmentsDataActivity.class);
+                i.putExtra("path", path);
+                startActivity(i);
+            }
+        });
+
+
+
+    }
+//  --------->>>>             //////////////////////////////////// END ///////////////////////////////////
+
+
+
     /////
 }

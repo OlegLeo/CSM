@@ -94,7 +94,7 @@ public class MenuActivity extends AppCompatActivity {
         mviewHolder.bt_menuQRcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(MenuActivity.this, ScannerActivity.class));
             }
         });
 

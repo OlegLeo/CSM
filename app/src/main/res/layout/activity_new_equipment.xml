@@ -152,12 +152,13 @@
             android:layout_weight="1"
             android:text="Category:" />
 
-        <EditText
-            android:id="@+id/et_newCategory"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="center"/>
+        <Spinner
+            android:id="@+id/spinner_newEquipment_category"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/black"
+            android:textSize="100sp"
+            android:layout_marginBottom="20dp"/>
     </LinearLayout>
 
     <LinearLayout

@@ -7,68 +7,123 @@
     android:orientation="vertical"
     tools:context=".RoomsDataActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5sp"
+                    android:layout_marginLeft="5sp"
+                    android:layout_weight="1"
+                    android:text="Nome:" />
+
+                <EditText
+                    android:id="@+id/et_dataRoomsName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5sp"
+                    android:layout_marginLeft="5sp"
+                    android:layout_weight="1"
+                    android:text="Designação:" />
+
+                <EditText
+                    android:id="@+id/et_dataDesignation"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center" />
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/bt_dataRoomEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Confirmar edição" />
+
+            <Button
+                android:id="@+id/bt_dataRoomDelete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Eliminar" />
+
+            <Button
+                android:id="@+id/bt_dataRoomBack"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Voltar" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:text="Lista de Equipamentos"
+                android:textSize="25sp"></TextView>
+
+            <Spinner
+                android:id="@+id/spinnerInRoom_category_search"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
+                android:backgroundTint="@color/black"
+                android:textSize="100sp"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="1dp" />
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_listEquipments"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="350dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/bt_InRoom_equipmentAdd"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5sp"
-            android:layout_marginLeft="5sp"
-            android:layout_weight="1"
-            android:text="Nome:" />
-
-        <EditText
-            android:id="@+id/et_dataRoomsName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="center"/>
-    </LinearLayout>
+            android:backgroundTint="#ff8400"
+            android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.861"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.925"
+            app:srcCompat="@drawable/add_new" />
 
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5sp"
-            android:layout_marginLeft="5sp"
-            android:layout_weight="1"
-            android:text="Designação:" />
-
-        <EditText
-            android:id="@+id/et_dataDesignation"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="center"/>
-    </LinearLayout>
-
-
-
-    <Button
-        android:id="@+id/bt_dataRoomEdit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Confirmar edição" />
-
-    <Button
-        android:id="@+id/bt_dataRoomDelete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Eliminar" />
-
-    <Button
-        android:id="@+id/bt_dataRoomBack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Voltar"/>
 
 </LinearLayout>

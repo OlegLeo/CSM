@@ -83,4 +83,7 @@ dependencies {
 
     // FirebaseUI for Cloud Storage
     implementation 'com.firebaseui:firebase-ui-storage:8.0.2'
+
+    //circleview
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
 }

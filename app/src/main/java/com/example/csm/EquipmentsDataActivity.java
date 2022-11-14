@@ -111,8 +111,9 @@ public class EquipmentsDataActivity extends AppCompatActivity {
                         categoryList.add("Outros");
 // - POPULATING SPINNER - //
 
-                        ArrayAdapter aa = new ArrayAdapter(EquipmentsDataActivity.this, android.R.layout.simple_spinner_item, categoryList);
-                        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        //ArrayAdapter aa = new ArrayAdapter(EquipmentsDataActivity.this, android.R.layout.simple_spinner_item, categoryList);
+                        ArrayAdapter aa = new ArrayAdapter(EquipmentsDataActivity.this,R.layout.spinner_item, categoryList);
+                        //aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         viewHolder.spinner_equipment_category_edit.setAdapter(aa);
                         viewHolder.spinner_equipment_category_edit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                             @Override

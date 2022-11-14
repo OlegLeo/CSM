@@ -61,8 +61,9 @@ public class ListEquipmentsActivity extends AppCompatActivity {
 
         // - POPULATING SPINNER - //
 
-        ArrayAdapter aa = new ArrayAdapter(ListEquipmentsActivity.this, android.R.layout.simple_spinner_item, categoryList);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //ArrayAdapter aa = new ArrayAdapter(ListEquipmentsActivity.this, android.R.layout.simple_spinner_item, categoryList);
+        //aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter aa = new ArrayAdapter(ListEquipmentsActivity.this,R.layout.spinner_item, categoryList);
         spinner_category_search.setAdapter(aa);
 
 

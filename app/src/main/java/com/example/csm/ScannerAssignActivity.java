@@ -38,7 +38,7 @@ public class ScannerAssignActivity extends AppCompatActivity {
 
     private SurfaceView surfaceView;
     private CameraSource cameraSource;
-    private TextView scannedText;
+    private TextView scannedText, tv_assign_scanned_info;
     private BarcodeDetector barcodeDetector;
     private Button bt_assign_scan;
 
@@ -50,6 +50,7 @@ public class ScannerAssignActivity extends AppCompatActivity {
         surfaceView = findViewById(R.id.sv_assign_camera);
         scannedText = findViewById(R.id.tv_assign_text_scanned);
         bt_assign_scan = findViewById(R.id.bt_assign_scan);
+        tv_assign_scanned_info = findViewById(R.id.tv_assign_scanned_info);
 
         Intent i = getIntent();
         Bundle extras = i.getExtras();
@@ -71,11 +72,12 @@ public class ScannerAssignActivity extends AppCompatActivity {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Equipments room = documentSnapshot.toObject(Equipments.class);
                         String roomId = room.getRoomId();
+                        String assignedName = room.getName();
                         equipRef.update("roomId",roomId);
+                        equipRef.update("assign", assignedName);
+                        Toast.makeText(ScannerAssignActivity.this, "Equipamento associado com sucesso.", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-                equipRef.update("assign", assign);
 
                 Intent i = new Intent(ScannerAssignActivity.this, EquipmentsDataActivity.class);
                 i.putExtra("path", docId);
@@ -129,6 +131,8 @@ public class ScannerAssignActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             scannedText.setText(qrcode.valueAt(0).displayValue);
+                            tv_assign_scanned_info.setText("QR Code lido com sucesso.");
+                            bt_assign_scan.setVisibility(View.VISIBLE);
                         }
                     });
                 }
@@ -142,7 +146,7 @@ public class ScannerAssignActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(ScannerAssignActivity.this, permission) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(ScannerAssignActivity.this, new String[]{permission}, requestCode);
         } else {
-            Toast.makeText(this, "Permission Already Granted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Já efetuada a permissão.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -151,11 +155,11 @@ public class ScannerAssignActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CAMERA_PERMISSION_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Permissão efetuada.", Toast.LENGTH_SHORT).show();
                 finish();
                 startActivity(getIntent());
             } else {
-                Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Permissão negada.", Toast.LENGTH_SHORT).show();
             }
         }
     }

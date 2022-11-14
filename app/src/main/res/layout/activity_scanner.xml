@@ -24,12 +24,26 @@
         android:backgroundTint="@color/white"
         android:padding="10dp"
         android:textColor="@color/black"
+        android:visibility="gone"
         android:textSize="30sp" />
+    <TextView
+        android:id="@+id/tv_scanned_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@android:drawable/editbox_background_normal"
+        android:backgroundTint="@color/white"
+        android:padding="10dp"
+        android:textColor="@color/black"
+        android:text="À espera pela leitura..."
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/bt_open_scan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Open" />
+        android:layout_marginTop="32dp"
+        android:visibility="invisible"
+        android:text="Abrir" />
 
 </LinearLayout>

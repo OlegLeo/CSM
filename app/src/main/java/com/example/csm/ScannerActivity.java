@@ -30,7 +30,7 @@ public class ScannerActivity extends AppCompatActivity {
 
     private SurfaceView surfaceView;
     private CameraSource cameraSource;
-    private TextView scannedText;
+    private TextView scannedText, tv_scanned_info;
     private BarcodeDetector barcodeDetector;
     private Button bt_open_scan;
 
@@ -42,13 +42,14 @@ public class ScannerActivity extends AppCompatActivity {
         surfaceView = findViewById(R.id.sv_camera);
         scannedText = findViewById(R.id.tv_text_scanned);
         bt_open_scan = findViewById(R.id.bt_open_scan);
+        tv_scanned_info = findViewById(R.id.tv_scanned_info);
+
 
         ////////////////////////////ABRE O EQUIPAMENTO DO ID QUE FEZ SCAN///////////////////////
         bt_open_scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String path = scannedText.getText().toString();
-                Toast.makeText(ScannerActivity.this, path, Toast.LENGTH_SHORT).show();
 
                 Intent i = new Intent(ScannerActivity.this, EquipmentsDataActivity.class);
                 i.putExtra("path", path);
@@ -102,12 +103,15 @@ public class ScannerActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             scannedText.setText(qrcode.valueAt(0).displayValue);
+                            tv_scanned_info.setText("QR Code lido com sucesso.");
+                            bt_open_scan.setVisibility(View.VISIBLE);
                         }
                     });
                 }
             }
         });
         ////////////////// END DETETOR DO QR ////////////////////////////
+
     }
 
     ///////////////////////////////// VERIFICA PERMISSÃO DA APP À CAMARA ///////////////////////////
@@ -115,7 +119,7 @@ public class ScannerActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(ScannerActivity.this, permission) == PackageManager.PERMISSION_DENIED) {
             ActivityCompat.requestPermissions(ScannerActivity.this, new String[]{permission}, requestCode);
         } else {
-            Toast.makeText(this, "Já efetuada a permissão", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Já efetuada a permissão.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -124,11 +128,11 @@ public class ScannerActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CAMERA_PERMISSION_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "Permissão efetuada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Permissão efetuada.", Toast.LENGTH_SHORT).show();
                 finish();
                 startActivity(getIntent());
             } else {
-                Toast.makeText(this, "Negada a permissão", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Permissão negada.", Toast.LENGTH_SHORT).show();
             }
         }
     }

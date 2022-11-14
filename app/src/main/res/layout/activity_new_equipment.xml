@@ -205,6 +205,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_weight="2"
+            android:textAllCaps="false"
             android:backgroundTint="@color/secondary_color"
             android:text="Cancelar" />
 
@@ -214,6 +215,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_weight="2"
+            android:textAllCaps="false"
             android:backgroundTint="@color/secondary_color"
             android:text="Gravar" />
 

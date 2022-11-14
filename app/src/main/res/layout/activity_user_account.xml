@@ -77,6 +77,7 @@
             android:layout_margin="10dp"
             android:backgroundTint="@color/secondary_color"
             android:gravity="center"
+            android:textAllCaps="false"
             android:text="Repor\n password" />
 
         <com.google.android.material.button.MaterialButton
@@ -95,23 +96,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:textAllCaps="false"
         android:backgroundTint="@color/secondary_color"
-        android:text="CONFIRMAR" />
+        android:text="Confirmar" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_edit_user_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:textAllCaps="false"
         android:backgroundTint="@color/secondary_color"
-        android:text="EDITAR" />
+        android:text="Editar" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/bt_delete_user_confirm_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:textAllCaps="false"
         android:backgroundTint="@color/secondary_color"
-        android:text="ELIMINAR CONTA" />
+        android:text="Eliminar conta" />
 
 </LinearLayout>

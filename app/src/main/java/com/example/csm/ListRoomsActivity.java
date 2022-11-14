@@ -110,6 +110,21 @@ public class ListRoomsActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.rv_listRooms);
         recyclerView.setAdapter(adapter);
+
+        //  --------->>>>             //////////////////////////////// ADDING ADAPTER ///////////////////////////////////////
+        adapter.setOnItemClickListener(new RoomsAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(DocumentSnapshot documentSnapshot, int pos) {
+                Equipments equipments = documentSnapshot.toObject(Equipments.class);
+                String path = documentSnapshot.getReference().getPath();
+
+                Intent i = new Intent(ListRoomsActivity.this, RoomsDataActivity.class);
+                i.putExtra("path", path);
+                startActivity(i);
+            }
+        });
+//  --------->>>>             //////////////////////////////////// END ///////////////////////////////////
+
     }
     /////
 

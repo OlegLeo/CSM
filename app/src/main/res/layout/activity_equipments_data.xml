@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@color/primary_color"
     tools:context=".EquipmentsDataActivity">
 
 
@@ -32,14 +33,16 @@
             android:layout_marginStart="5sp"
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
-            android:text="Nome:" />
+            android:text="Nome:"
+            android:textColor="@color/white"/>
 
         <EditText
             android:id="@+id/et_dataName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
     <LinearLayout
@@ -53,14 +56,16 @@
             android:layout_marginStart="5sp"
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
-            android:text="Marca:" />
+            android:text="Marca:"
+            android:textColor="@color/white"/>
 
         <EditText
             android:id="@+id/et_dataBrand"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
     <LinearLayout
@@ -74,14 +79,16 @@
             android:layout_marginStart="5sp"
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
-            android:text="Descrição:" />
+            android:text="Descrição:"
+            android:textColor="@color/white"/>
 
         <EditText
             android:id="@+id/et_dataDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
     <LinearLayout
@@ -95,14 +102,16 @@
             android:layout_marginStart="5sp"
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
-            android:text="Cor:" />
+            android:text="Cor:"
+            android:textColor="@color/white"/>
 
         <EditText
             android:id="@+id/et_dataColor"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
     <LinearLayout
@@ -116,14 +125,16 @@
             android:layout_marginStart="5sp"
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
-            android:text="Sala:" />
+            android:text="Sala:"
+            android:textColor="@color/white"/>
 
         <EditText
             android:id="@+id/et_dataRoomId"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
     <LinearLayout
@@ -137,14 +148,16 @@
             android:layout_marginStart="5sp"
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
-            android:text="Associado:" />
+            android:text="Associado:"
+            android:textColor="@color/white"/>
 
         <EditText
             android:id="@+id/et_dataAssign"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:gravity="center" />
+            android:gravity="center"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
     <LinearLayout
@@ -158,13 +171,14 @@
             android:layout_marginStart="5sp"
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
-            android:text="Category:" />
+            android:text="Category:"
+            android:textColor="@color/white"/>
 
         <Spinner
             android:id="@+id/spinner_equipment_category_edit"
             android:layout_width="250dp"
             android:layout_height="40dp"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/white"
             android:textSize="100sp"/>
     </LinearLayout>
 
@@ -178,17 +192,19 @@
 
         <Button
             android:id="@+id/bt_dataEdit"
-            android:layout_width="wrap_content"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:text="Confirmar edição" />
+            android:text="Confirmar edição"
+            android:backgroundTint="@color/secondary_color"/>
 
         <Button
             android:id="@+id/bt_dataDelete"
-            android:layout_width="wrap_content"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:text="Eliminar" />
+            android:text="Eliminar"
+            android:backgroundTint="@color/secondary_color"/>
 
     </LinearLayout>
 
@@ -200,18 +216,20 @@
 
         <Button
             android:id="@+id/bt_dataGenQRCode"
-            android:layout_width="wrap_content"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
-            android:text="Gerar QRCode" />
+            android:text="Gerar QRCode"
+            android:backgroundTint="@color/secondary_color"/>
 
         <Button
             android:id="@+id/bt_dataScanQRCode"
-            android:layout_width="wrap_content"
+            android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:drawableRight="@drawable/qr_icon"
-            android:text="Ler QR" />
+            android:text="Ler QR"
+            android:backgroundTint="@color/secondary_color"/>
     </LinearLayout>
 
 

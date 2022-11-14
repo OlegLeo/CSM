@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/primary_color"
     tools:context=".RoomsDataActivity">
 
 
@@ -29,14 +30,17 @@
                     android:layout_marginStart="5sp"
                     android:layout_marginLeft="5sp"
                     android:layout_weight="1"
-                    android:text="Nome:" />
+                    android:text="Nome:"
+                    android:textColor="@color/white"/>
 
                 <EditText
                     android:id="@+id/et_dataRoomsName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textColor="@color/white"/>
+
             </LinearLayout>
 
 
@@ -51,34 +55,47 @@
                     android:layout_marginStart="5sp"
                     android:layout_marginLeft="5sp"
                     android:layout_weight="1"
-                    android:text="Designação:" />
+                    android:text="Designação:"
+                    android:textColor="@color/white"/>
 
                 <EditText
                     android:id="@+id/et_dataDesignation"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
-                    android:gravity="center" />
+                    android:gravity="center"
+                    android:textColor="@color/white"/>
             </LinearLayout>
 
-
-            <Button
-                android:id="@+id/bt_dataRoomEdit"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Confirmar edição" />
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/bt_dataRoomDelete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Eliminar" />
+                <Button
+                    android:id="@+id/bt_dataRoomEdit"
+                    android:layout_width="190dp"
+                    android:layout_height="wrap_content"
+                    android:text="Confirmar edição"
+                    android:backgroundTint="@color/secondary_color"/>
 
-            <Button
-                android:id="@+id/bt_dataRoomBack"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Voltar" />
+                <Button
+                    android:id="@+id/bt_dataRoomBack"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="Voltar"
+                    android:backgroundTint="@color/secondary_color"/>
+
+                <Button
+                    android:id="@+id/bt_dataRoomDelete"
+                    android:layout_width="110dp"
+                    android:layout_height="wrap_content"
+                    android:text="Eliminar"
+                    android:backgroundTint="@color/secondary_color"/>
+
+            </LinearLayout>
+
 
             <TextView
                 android:layout_width="match_parent"
@@ -86,13 +103,14 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="Lista de Equipamentos"
-                android:textSize="25sp"></TextView>
+                android:textColor="@color/white"
+                android:textSize="25sp"/>
 
             <Spinner
                 android:id="@+id/spinnerInRoom_category_search"
                 android:layout_width="250dp"
                 android:layout_height="40dp"
-                android:backgroundTint="@color/black"
+                android:backgroundTint="@color/white"
                 android:textSize="100sp"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="16dp"
@@ -104,7 +122,7 @@
             android:id="@+id/rv_listEquipments"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="350dp"
+            android:layout_marginTop="235dp"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp" />
 

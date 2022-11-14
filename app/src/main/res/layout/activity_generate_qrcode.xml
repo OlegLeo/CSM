@@ -7,6 +7,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="16dp"
+    android:background="@color/primary_color"
     tools:context=".GenerateQRCodeActivity">
 
 
@@ -32,6 +33,7 @@
         android:id="@+id/bt_download"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/secondary_color"
         android:layout_marginVertical="10dp"
         android:text="Download" />
 
@@ -40,6 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
+        android:backgroundTint="@color/secondary_color"
         android:text="Enviar Email" />
 
     <ImageView

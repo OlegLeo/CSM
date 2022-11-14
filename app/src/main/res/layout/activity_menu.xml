@@ -6,60 +6,72 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@color/primary_color"
     tools:context=".MenuActivity">
+
+    <ImageView
+        android:layout_width="350dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:src="@drawable/logo_cesae_white"
+        android:layout_marginBottom="30dp"/>
 
     <TextView
         android:id="@+id/textView"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bem-Vindo!"
-        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:text="Menu"
+        android:textSize="40dp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:paddingBottom="30dp"/>
 
     <Button
-        android:layout_marginTop="150dp"
         android:id="@+id/bt_menuRooms"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/secondary_color"
+        android:padding="5dp"
+        android:layout_margin="10dp"
         android:text="Salas"/>
+
     <Button
         android:id="@+id/bt_menuEquipments"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/secondary_color"
+        android:padding="5dp"
+        android:layout_margin="10dp"
         android:text="Equipamentos"/>
+
     <Button
         android:id="@+id/bt_menuQRcode"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/secondary_color"
+        android:padding="5dp"
+        android:layout_margin="10dp"
         android:text="QRcode"/>
 
     <Button
         android:id="@+id/bt_user_account"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Conta"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
+        android:backgroundTint="@color/secondary_color"
+        android:padding="5dp"
+        android:layout_margin="10dp"
+        android:text="Conta"/>
 
     <Button
         android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="SAIR"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        android:backgroundTint="@color/secondary_color"
+        android:padding="5dp"
+        android:layout_margin="10dp"
+        android:text="SAIR"/>
+
+
 
 </LinearLayout>

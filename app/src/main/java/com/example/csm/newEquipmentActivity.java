@@ -24,6 +24,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -31,6 +33,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class newEquipmentActivity extends AppCompatActivity {
@@ -39,7 +42,7 @@ public class newEquipmentActivity extends AppCompatActivity {
     private static final int PICK_REQUEST = 1;
     private StorageTask uploadTask;
     private Uri uri_image;
-    private String name = "", brand = "", description = "", color = "", photo = "", roomId = "", assign = "";
+    private String name = "", brand = "", description = "", photo = "", roomId = "", assign = "";
 
     //////////////////////////////////////////////////// SPINNER UPDATE ////////////////////////////////////////////////
     String newSelectedCategory = "";
@@ -55,15 +58,77 @@ public class newEquipmentActivity extends AppCompatActivity {
         viewHolder.et_newName = findViewById(R.id.et_newName);
         viewHolder.et_newBrand = findViewById(R.id.et_newBrand);
         viewHolder.et_newDescription = findViewById(R.id.et_newDescription);
-        viewHolder.et_newColor = findViewById(R.id.et_newColor);
-        viewHolder.et_newRoomId = findViewById(R.id.et_newRoomId);
+
         viewHolder.et_newAssign = findViewById(R.id.et_newAssign);
         viewHolder.bt_newAdd = findViewById(R.id.bt_newAdd);
         viewHolder.bt_newBack = findViewById(R.id.bt_newBack);
+        viewHolder.spinner_addnew_equip_roomsName_list = findViewById(R.id.spinner_addnew_equip_roomsName_list);
 
         //////////////////////////////// -----> //  SPINNER UPDATE // <------ // ////////////////////////////////////////
 
         viewHolder.spinner_newEquipment_category = findViewById(R.id.spinner_newEquipment_category);
+
+        ///////////////////////// ~~~~~~~~~~~ ROOM LIST SPINNER ~~~~~~~~~~~ //////////////////////////////////
+
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference finalRoomRef = db.collection("Rooms");
+
+
+        finalRoomRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List roomsNameList = new ArrayList();
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    Rooms rooms = documentSnapshot.toObject(Rooms.class);
+                    String RoomsName = rooms.getRoomName();
+                    roomsNameList.add(RoomsName);
+                }
+
+
+                //////////////////////////// populating spinner ///////////////////////////
+
+                ArrayAdapter aa = new ArrayAdapter(newEquipmentActivity.this, R.layout.spinner_item, roomsNameList);
+                //aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                viewHolder.spinner_addnew_equip_roomsName_list.setAdapter(aa);
+                viewHolder.spinner_addnew_equip_roomsName_list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        if (i > 0) {
+                            String posName = roomsNameList.get(i).toString();
+                            //Toast.makeText(EquipmentsDataActivity.this, posName, Toast.LENGTH_SHORT).show();
+
+                            // updating inside FIRESTORE
+                            roomId = posName;
+
+                            //docRef.update("roomId", posName);
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        //Toast.makeText(MainActivity.this, "Nada selecionado", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                ///////////////////////////////////////////////////////
+
+                // Toast.makeText(newEquipmentActivity.this, roomId, Toast.LENGTH_SHORT).show();
+                // ORDERING THE LIST
+                Collections.sort(roomsNameList);
+                roomsNameList.add(0, "Selecione uma opção");
+
+            }
+
+
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                //Log.d(TAG,e.toString());
+            }
+        });
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
         //Toast.makeText(EquipmentsDataActivity.this, getCategoryString, Toast.LENGTH_SHORT).show();
@@ -83,7 +148,7 @@ public class newEquipmentActivity extends AppCompatActivity {
 
         //ArrayAdapter aa = new ArrayAdapter(newEquipmentActivity.this, android.R.layout.simple_spinner_item, categoryList);
         //aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ArrayAdapter aa = new ArrayAdapter(newEquipmentActivity.this,R.layout.spinner_item, categoryList);
+        ArrayAdapter aa = new ArrayAdapter(newEquipmentActivity.this, R.layout.spinner_item, categoryList);
         viewHolder.spinner_newEquipment_category.setAdapter(aa);
 
         viewHolder.spinner_newEquipment_category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -110,15 +175,14 @@ public class newEquipmentActivity extends AppCompatActivity {
                 name = viewHolder.et_newName.getText().toString();
                 brand = viewHolder.et_newBrand.getText().toString();
                 description = viewHolder.et_newDescription.getText().toString();
-                color = viewHolder.et_newColor.getText().toString();
-                roomId = viewHolder.et_newRoomId.getText().toString();
+                //roomId = viewHolder.et_newRoomId.getText().toString();
                 assign = viewHolder.et_newAssign.getText().toString();
                 //category = viewHolder.et_newCategory.getText().toString();
                 photo = "";
 
 
 //  --------->>>>           // VERIFY IF THE INPUTS ARE EMPTY      ----->>>>>>   //////////////// SPINNER UPDATE VALIDATION //////////////////
-                if (name.trim().isEmpty() || brand.trim().isEmpty() || description.trim().isEmpty() || color.trim().isEmpty() || newSelectedCategory.equals(categoryList.get(0))) {
+                if (name.trim().isEmpty() || brand.trim().isEmpty() || description.trim().isEmpty() || newSelectedCategory.equals(categoryList.get(0))) {
                     Toast.makeText(newEquipmentActivity.this, "Preencher todos os campos", Toast.LENGTH_SHORT).show();
 
                 } else {
@@ -134,7 +198,7 @@ public class newEquipmentActivity extends AppCompatActivity {
                                 while (!uri.isComplete()) ;
                                 photo = uri.getResult().toString();
                                 CollectionReference reference = FirebaseFirestore.getInstance().collection("Equipments");
-                                reference.add(new Equipments(name, brand, description, color, photo, roomId, assign, newSelectedCategory)); /// spinner update
+                                reference.add(new Equipments(name, brand, description, photo, roomId, assign, newSelectedCategory)); /// spinner update
 
                                 Toast.makeText(newEquipmentActivity.this, "Novo equipamento adicionado", Toast.LENGTH_SHORT).show();
                                 clearAll();
@@ -151,7 +215,7 @@ public class newEquipmentActivity extends AppCompatActivity {
 //  --------->>>>            // IF NO IMG/PHOTO IS SELECTED/UPLOADED BY USER
                         photo = "";
                         CollectionReference reference = FirebaseFirestore.getInstance().collection("Equipments");
-                        reference.add(new Equipments(name, brand, description, color, photo, roomId, assign, newSelectedCategory));  /// spinner update
+                        reference.add(new Equipments(name, brand, description, photo, roomId, assign, newSelectedCategory));  /// spinner update
                         Toast.makeText(newEquipmentActivity.this, "Novo equipamento adicionado", Toast.LENGTH_SHORT).show();
                         clearAll();
                         finish();
@@ -208,11 +272,11 @@ public class newEquipmentActivity extends AppCompatActivity {
 
     private class ViewHolder {
         ImageView iv_newPhoto;
-        EditText et_newName, et_newBrand, et_newDescription, et_newColor, et_newRoomId, et_newAssign;
+        EditText et_newName, et_newBrand, et_newDescription, et_newRoomId, et_newAssign;
         Button bt_newBack, bt_newAdd;
 
         // SPINNER UPDATE /// <<<------------------------------------------------------------------------
-        Spinner spinner_newEquipment_category;
+        Spinner spinner_newEquipment_category, spinner_addnew_equip_roomsName_list;
         //////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
@@ -220,8 +284,8 @@ public class newEquipmentActivity extends AppCompatActivity {
         viewHolder.et_newName.setText("");
         viewHolder.et_newBrand.setText("");
         viewHolder.et_newDescription.setText("");
-        viewHolder.et_newColor.setText("");
-        viewHolder.et_newRoomId.setText("");
+        //viewHolder.et_newColor.setText("");
+        //viewHolder.et_newRoomId.setText("");
         viewHolder.et_newAssign.setText("");
         //viewHolder.et_newCategory.setText("");
     }

@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_dark"
+    android:padding="16dp"
     android:orientation="vertical"
-    android:background="@color/primary_color"
     tools:context=".UserAccountActivity">
-
 
 
     <TextView
@@ -23,11 +23,11 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_email_edit_user"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
-        android:layout_marginTop="30dp"
         android:layout_height="wrap_content"
-        android:id="@+id/layout_email_edit_user"
+        android:layout_marginTop="30dp"
         android:textColorHint="@color/white"
         app:boxStrokeColor="@color/white"
         app:hintTextColor="@color/white">
@@ -38,17 +38,17 @@
             android:layout_height="wrap_content"
             android:editable="false"
             android:hint="Email"
-            android:textColor="@color/white"
             android:inputType="textEmailAddress"
+            android:textColor="@color/white"
             tools:ignore="Deprecated" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layout_confirm_password_user"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:id="@+id/layout_confirm_password_user"
         android:textColorHint="@color/white"
         app:boxStrokeColor="@color/white"
         app:hintTextColor="@color/white">
@@ -58,37 +58,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Confirmar Password"
-            android:textColor="@color/white"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
-
-
-
 
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:layout_gravity="center">
+        android:orientation="horizontal">
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/bt_edit_user_resetPassword"
             android:layout_width="wrap_content"
+            android:layout_height="60dp"
             android:layout_margin="10dp"
-            android:layout_height="wrap_content"
             android:backgroundTint="@color/secondary_color"
             android:gravity="center"
-            android:text="Repor password" />
+            android:text="Repor\n password" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/bt_edit_user_deleteUser"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_margin="10dp"
-            android:backgroundTint="@color/secondary_color"
+            android:backgroundTint="@color/delete"
             android:gravity="center"
-            android:text="Eliminar Conta" />
+            android:text="Eliminar\n Conta" />
     </LinearLayout>
 
 

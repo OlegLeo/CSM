@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_dark"
     android:orientation="vertical"
     android:padding="16dp"
-    android:background="@color/primary_color"
     tools:context=".EquipmentsDataActivity">
 
-
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_dataPhoto"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        app:civ_border_color="@color/white"
+        app:civ_border_overlay="true"
+        app:civ_border_width="2dp" />
 
     <TextView
         android:id="@+id/tv_dataDocId"
@@ -34,7 +36,7 @@
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
             android:text="Nome:"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/et_dataName"
@@ -42,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -57,7 +59,7 @@
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
             android:text="Marca:"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/et_dataBrand"
@@ -65,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -80,7 +82,7 @@
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
             android:text="Descrição:"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/et_dataDescription"
@@ -88,10 +90,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
     </LinearLayout>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -103,7 +105,7 @@
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
             android:text="Cor:"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/et_dataColor"
@@ -111,8 +113,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
-            android:textColor="@color/white"/>
-    </LinearLayout>
+            android:textColor="@color/white" />
+    </LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -122,19 +124,20 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="5sp"
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
             android:text="Sala:"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
-        <EditText
-            android:id="@+id/et_dataRoomId"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:textColor="@color/white"/>
+        <Spinner
+            android:id="@+id/spinner_roomsName_list"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/white"
+            android:textSize="100sp" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -149,7 +152,7 @@
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
             android:text="Associado:"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/et_dataAssign"
@@ -157,7 +160,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -168,18 +171,19 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginStart="5sp"
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
-            android:text="Category:"
-            android:textColor="@color/white"/>
+            android:text="Categoria:"
+            android:textColor="@color/white" />
 
         <Spinner
             android:id="@+id/spinner_equipment_category_edit"
             android:layout_width="250dp"
             android:layout_height="40dp"
             android:backgroundTint="@color/white"
-            android:textSize="100sp"/>
+            android:textSize="100sp" />
     </LinearLayout>
 
 
@@ -192,44 +196,45 @@
 
         <Button
             android:id="@+id/bt_dataEdit"
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginHorizontal="10dp"
-            android:text="Confirmar edição"
-            android:backgroundTint="@color/secondary_color"/>
+            android:backgroundTint="@color/secondary_color"
+            android:text="Confirmar edição" />
 
         <Button
             android:id="@+id/bt_dataDelete"
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginHorizontal="10dp"
-            android:text="Eliminar"
-            android:backgroundTint="@color/secondary_color"/>
+            android:backgroundTint="@color/delete"
+            android:text="Eliminar" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/bt_dataGenQRCode"
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginHorizontal="10dp"
-            android:text="Gerar QRCode"
-            android:backgroundTint="@color/secondary_color"/>
+            android:backgroundTint="@color/secondary_color"
+            android:text="Gerar QRCode" />
 
         <Button
             android:id="@+id/bt_dataScanQRCode"
-            android:layout_width="190dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
             android:layout_marginHorizontal="10dp"
+            android:backgroundTint="@color/secondary_color"
             android:drawableRight="@drawable/qr_icon"
-            android:text="Ler QR"
-            android:backgroundTint="@color/secondary_color"/>
+            android:text="Ler QR" />
     </LinearLayout>
 
 

@@ -2,7 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_color"
+    android:background="@drawable/gradient_dark"
+    android:padding="16dp"
+    android:gravity="center_vertical"
     android:orientation="vertical">
 
     <TextView
@@ -69,6 +71,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
+            android:layout_marginHorizontal="10dp"
             android:text="Cancelar"
             android:backgroundTint="@color/secondary_color"/>
 
@@ -77,6 +80,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
+            android:layout_marginHorizontal="10dp"
             android:text="Gravar"
             android:backgroundTint="@color/secondary_color"/>
 

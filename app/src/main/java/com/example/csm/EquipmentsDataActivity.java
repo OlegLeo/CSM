@@ -25,9 +25,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -35,6 +38,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -49,6 +53,8 @@ public class EquipmentsDataActivity extends AppCompatActivity {
     String id = "";
     DocumentReference docRef;
 
+    // UPDATE SPINNER -- ROOM NAME //
+    boolean isEdit = false;
     //////////////////////////////////////////////////// SPINNER UPDATE ////////////////////////////////////////////////
     String newSelectedCategory = "";
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -62,8 +68,6 @@ public class EquipmentsDataActivity extends AppCompatActivity {
         viewHolder.et_dataName = findViewById(R.id.et_dataName);
         viewHolder.et_dataBrand = findViewById(R.id.et_dataBrand);
         viewHolder.et_dataDescription = findViewById(R.id.et_dataDescription);
-        viewHolder.et_dataColor = findViewById(R.id.et_dataColor);
-        viewHolder.et_dataRoomId = findViewById(R.id.et_dataRoomId);
         viewHolder.et_dataAssign = findViewById(R.id.et_dataAssign);
 
         viewHolder.bt_dataEdit = findViewById(R.id.bt_dataEdit);
@@ -74,6 +78,9 @@ public class EquipmentsDataActivity extends AppCompatActivity {
         viewHolder.tv_dataDocId = findViewById(R.id.tv_dataDocId);
 
         viewHolder.spinner_equipment_category_edit = findViewById(R.id.spinner_equipment_category_edit);
+
+        /// ROOMS NAME SPINENR UPDATE //
+        viewHolder.spinner_roomsName_list = findViewById(R.id.spinner_roomsName_list);
 
         i = getIntent();
 
@@ -91,8 +98,7 @@ public class EquipmentsDataActivity extends AppCompatActivity {
                         viewHolder.et_dataName.setText(documentSnapshot.getData().get("name").toString());
                         viewHolder.et_dataBrand.setText(documentSnapshot.getData().get("brand").toString());
                         viewHolder.et_dataDescription.setText(documentSnapshot.getData().get("description").toString());
-                        viewHolder.et_dataColor.setText(documentSnapshot.getData().get("color").toString());
-                        viewHolder.et_dataRoomId.setText(documentSnapshot.getData().get("roomId").toString());
+                        //viewHolder.et_dataRoomId.setText(documentSnapshot.getData().get("roomId").toString());
                         viewHolder.et_dataAssign.setText(documentSnapshot.getData().get("assign").toString());
                         viewHolder.tv_dataDocId.setText(documentSnapshot.getId());
 
@@ -112,7 +118,7 @@ public class EquipmentsDataActivity extends AppCompatActivity {
 // - POPULATING SPINNER - //
 
                         //ArrayAdapter aa = new ArrayAdapter(EquipmentsDataActivity.this, android.R.layout.simple_spinner_item, categoryList);
-                        ArrayAdapter aa = new ArrayAdapter(EquipmentsDataActivity.this,R.layout.spinner_item, categoryList);
+                        ArrayAdapter aa = new ArrayAdapter(EquipmentsDataActivity.this, R.layout.spinner_item, categoryList);
                         //aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         viewHolder.spinner_equipment_category_edit.setAdapter(aa);
                         viewHolder.spinner_equipment_category_edit.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -129,7 +135,7 @@ public class EquipmentsDataActivity extends AppCompatActivity {
                         });
 // SPINNER SET ON POSITION FROM DATABASE
                         int index = 0;
-                        for (int i = 0; i < categoryList.size(); i ++) {
+                        for (int i = 0; i < categoryList.size(); i++) {
                             if (getCategoryString.contains((CharSequence) categoryList.get(i))) {
                                 index = i;
                                 break;
@@ -156,6 +162,108 @@ public class EquipmentsDataActivity extends AppCompatActivity {
                 }
             }
         });
+
+        //////// --------------->> TESTE SPINNER SALAS <<---------------- /////////
+
+
+//FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference notebookRef = db.collection("Rooms");
+
+        notebookRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List roomsNameList = new ArrayList();
+                for (QueryDocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                    Rooms rooms = documentSnapshot.toObject(Rooms.class);
+                    String RoomsName = rooms.getRoomName();
+                    roomsNameList.add(RoomsName);
+                }
+
+
+                //////////////////////////// populating spinner ///////////////////////////
+
+                ArrayAdapter aa = new ArrayAdapter(EquipmentsDataActivity.this, R.layout.spinner_item, roomsNameList);
+
+                //aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                viewHolder.spinner_roomsName_list.setAdapter(aa);
+                viewHolder.spinner_roomsName_list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                        String posName = roomsNameList.get(i).toString();
+                        //Toast.makeText(EquipmentsDataActivity.this, posName, Toast.LENGTH_SHORT).show();
+                        if (isEdit)
+                            // updating inside FIRESTORE
+                            docRef.update("roomId", posName);
+
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                        //Toast.makeText(MainActivity.this, "Nada selecionado", Toast.LENGTH_SHORT).show();
+                    }
+                });
+///////////////////////////////////////////////////////
+
+                // ORDERING THE LIST
+                Collections.sort(roomsNameList);
+
+                ///////////////////////////////////
+                i = getIntent();
+
+                String path = i.getExtras().getString("path");
+                id = path.substring(path.indexOf("/") + 1);
+
+                docRef = db.collection("Equipments").document(id);
+                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot documentSnapshot = task.getResult();
+                            if (documentSnapshot.exists()) {
+                                //Toast.makeText(EquipmentsDataActivity.this, "Dados lidos com sucesso", Toast.LENGTH_SHORT).show();
+
+                                //viewHolder.et_dataRoomId.setText(documentSnapshot.getData().get("roomId").toString());
+                                String getRoomName = String.valueOf(documentSnapshot.getData().get("roomId"));
+                                //Toast.makeText(EquipmentsDataActivity.this, getRoomName, Toast.LENGTH_SHORT).show();
+
+
+                                // SPINNER SET ON POSITION FROM DATABASE
+
+                                int index = 0;
+                                for (int i = 0; i < roomsNameList.size(); i++) {
+                                    if (getRoomName.contains((CharSequence) roomsNameList.get(i))) {
+                                        index = i;
+                                        break;
+                                    } else {
+                                        index = 0;
+                                    }
+                                }
+                                //Toast.makeText(EquipmentsDataActivity.this, String.valueOf(index), Toast.LENGTH_SHORT).show();
+                                // FINDING THE POSITION OF CATEGORY INSIDE SPINNER
+
+                                viewHolder.spinner_roomsName_list.setSelection(index);
+                                ///////////////////////////////////////////////////////////
+                                isEdit = true;
+
+                            }
+                        }
+                    }
+                });
+
+            }
+
+
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                //Log.d(TAG,e.toString());
+            }
+        });
+
+
+        ///////////////// --------------------------------------- ///////////////////
 
         viewHolder.iv_dataPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,7 +306,6 @@ public class EquipmentsDataActivity extends AppCompatActivity {
                     }
                 });
                 builder.show();
-
             }
         });
 
@@ -274,8 +381,7 @@ public class EquipmentsDataActivity extends AppCompatActivity {
         docRef.update("name", viewHolder.et_dataName.getText().toString());
         docRef.update("brand", viewHolder.et_dataBrand.getText().toString());
         docRef.update("description", viewHolder.et_dataDescription.getText().toString());
-        docRef.update("color", viewHolder.et_dataColor.getText().toString());
-        docRef.update("roomId", viewHolder.et_dataRoomId.getText().toString());
+        //docRef.update("roomId", viewHolder.et_dataRoomId.getText().toString());
         docRef.update("assign", viewHolder.et_dataAssign.getText().toString());
         docRef.update("category", newSelectedCategory);
 
@@ -299,10 +405,10 @@ public class EquipmentsDataActivity extends AppCompatActivity {
 
     private class ViewHolder {
         ImageView iv_dataPhoto;
-        EditText et_dataName, et_dataBrand, et_dataDescription, et_dataColor, et_dataRoomId, et_dataAssign, et_dataCategory;
+        EditText et_dataName, et_dataBrand, et_dataDescription, et_dataRoomId, et_dataAssign, et_dataCategory;
         Button bt_dataEdit, bt_dataDelete, bt_dataCancel, bt_dataOk, bt_dataGenQRCode, bt_dataScanQRCode;
         TextView tv_dataDocId;
-        Spinner spinner_equipment_category_edit;
+        Spinner spinner_equipment_category_edit, spinner_roomsName_list;
     }
 
 

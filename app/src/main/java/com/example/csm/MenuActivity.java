@@ -66,7 +66,7 @@ public class MenuActivity extends AppCompatActivity {
         if (user != null) {
             // Name, email address, and profile photo Url
             String email = user.getEmail();
-            Toast.makeText(this, String.valueOf(email), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, String.valueOf(email), Toast.LENGTH_SHORT).show();
         }
 
 

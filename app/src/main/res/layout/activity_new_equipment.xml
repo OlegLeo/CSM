@@ -4,27 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_dark"
+    android:gravity="center_vertical"
     android:orientation="vertical"
-    android:background="@color/primary_color"
+    android:padding="16dp"
     tools:context=".newEquipmentActivity">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:textSize="25dp"
-        android:textColor="@color/white"
+        android:layout_marginBottom="16dp"
         android:gravity="center"
-        android:text="Adicionar novo equipamento"/>
+        android:paddingBottom="5dp"
+        android:text="Adicionar novo equipamento"
+        android:textColor="@color/white"
+        android:textSize="25dp" />
+
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_newPhoto"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
+        android:src="@drawable/download_2"
         app:civ_border_color="@color/white"
         app:civ_border_overlay="true"
-        app:civ_border_width="2dp"
-        android:src="@drawable/download_2"/>
+        app:civ_border_width="2dp" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +44,7 @@
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
             android:text="Nome:"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/et_newName"
@@ -46,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -61,7 +67,7 @@
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
             android:text="Marca:"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/et_newBrand"
@@ -69,7 +75,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -84,7 +90,7 @@
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
             android:text="Descrição:"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/et_newDescription"
@@ -92,31 +98,31 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+    <!-- <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5sp"
-            android:layout_marginLeft="5sp"
-            android:layout_weight="1"
-            android:text="Cor:"
-            android:textColor="@color/white"/>
+         <TextView
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_marginStart="5sp"
+             android:layout_marginLeft="5sp"
+             android:layout_weight="1"
+             android:text="Cor:"
+             android:textColor="@color/white" />
 
-        <EditText
-            android:id="@+id/et_newColor"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:textColor="@color/white"/>
-    </LinearLayout>
+         <EditText
+             android:id="@+id/et_newColor"
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="3"
+             android:gravity="center"
+             android:textColor="@color/white" />
+     </LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -130,21 +136,22 @@
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
             android:text="Sala:"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
-        <EditText
-            android:id="@+id/et_newRoomId"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:gravity="center"
-            android:textColor="@color/white"/>
+        <Spinner
+            android:id="@+id/spinner_addnew_equip_roomsName_list"
+            android:layout_width="250dp"
+            android:layout_height="40dp"
+            android:backgroundTint="@color/white"
+            android:textSize="100sp" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:layout_width="0dp"
@@ -153,7 +160,7 @@
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
             android:text="Associado:"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <EditText
             android:id="@+id/et_newAssign"
@@ -161,7 +168,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:gravity="center"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -175,37 +182,40 @@
             android:layout_marginStart="5sp"
             android:layout_marginLeft="5sp"
             android:layout_weight="1"
-            android:text="Category:"
-            android:textColor="@color/white"/>
+            android:text="Categoria:"
+            android:textColor="@color/white" />
 
         <Spinner
             android:id="@+id/spinner_newEquipment_category"
             android:layout_width="250dp"
             android:layout_height="40dp"
+            android:layout_marginBottom="20dp"
             android:backgroundTint="@color/white"
-            android:textSize="100sp"
-            android:layout_marginBottom="20dp"/>
+            android:textSize="100sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <Button
             android:id="@+id/bt_newBack"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:layout_weight="2"
-            android:text="Cancelar"
-            android:backgroundTint="@color/secondary_color"/>
+            android:backgroundTint="@color/secondary_color"
+            android:text="Cancelar" />
 
         <Button
             android:id="@+id/bt_newAdd"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
             android:layout_weight="2"
-            android:text="Gravar"
-            android:backgroundTint="@color/secondary_color"/>
+            android:backgroundTint="@color/secondary_color"
+            android:text="Gravar" />
 
     </LinearLayout>
 

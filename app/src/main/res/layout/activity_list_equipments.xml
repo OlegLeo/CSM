@@ -5,9 +5,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/primary_color"
+    android:background="@drawable/gradient_dark"
     tools:context=".ListEquipmentsActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categorias: "
+            android:layout_marginRight="6dp"
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
     <Spinner
         android:id="@+id/spinner_category_search"
         android:layout_width="250dp"
@@ -17,6 +28,7 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
         tools:layout_editor_absoluteY="1dp" />
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -26,7 +38,7 @@
             android:id="@+id/rv_listEquipments"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/primary_color"
+            android:background="@drawable/gradient_dark"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="1dp"
             tools:layout_editor_absoluteY="41dp" />

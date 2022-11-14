@@ -33,13 +33,14 @@ public class newRoomActivity extends AppCompatActivity {
                 String designation = viewHolder.et_newRoomDesignation.getText().toString();
 
                 if(roomName.trim().isEmpty() || designation.trim().isEmpty()){
-                    Toast.makeText(newRoomActivity.this, "Preencher todos os campos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(newRoomActivity.this, "Preencher todos os campos.", Toast.LENGTH_SHORT).show();
                 }
 
                 CollectionReference reference = FirebaseFirestore.getInstance().collection("Rooms");
                 reference.add(new Rooms(roomName, designation));
-                Toast.makeText(newRoomActivity.this, "Novo equipamento adicionado", Toast.LENGTH_SHORT).show();
+                Toast.makeText(newRoomActivity.this, "Nova sala adicionada.", Toast.LENGTH_SHORT).show();
                 clearAll();
+                finish();
             }
         });
 

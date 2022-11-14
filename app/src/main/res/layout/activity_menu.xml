@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/primary_color"
+    android:background="@drawable/gradient_dark"
     tools:context=".MenuActivity">
 
     <ImageView
@@ -26,11 +26,14 @@
         android:textSize="40dp"
         android:textStyle="bold"
         android:paddingBottom="30dp"/>
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
     <Button
         android:id="@+id/bt_menuRooms"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
         android:backgroundTint="@color/secondary_color"
         android:padding="5dp"
         android:layout_margin="10dp"
@@ -38,35 +41,40 @@
 
     <Button
         android:id="@+id/bt_menuEquipments"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
         android:backgroundTint="@color/secondary_color"
         android:padding="5dp"
         android:layout_margin="10dp"
         android:text="Equipamentos"/>
-
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
     <Button
         android:id="@+id/bt_menuQRcode"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
         android:backgroundTint="@color/secondary_color"
         android:padding="5dp"
         android:layout_margin="10dp"
-        android:text="QRcode"/>
+        android:text="Ler QRcode"/>
 
     <Button
         android:id="@+id/bt_user_account"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
         android:backgroundTint="@color/secondary_color"
         android:padding="5dp"
         android:layout_margin="10dp"
         android:text="Conta"/>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btnLogout"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="70dp"
         android:backgroundTint="@color/secondary_color"
         android:padding="5dp"
         android:layout_margin="10dp"

@@ -12,4 +12,5 @@
     <color name="gradient_start">#3a9ad5</color>
     <color name="gradient_center">#e10d7d</color>
     <color name="gradient_end">#462565</color>
+    <color name="delete">#D80909</color>
 </resources>

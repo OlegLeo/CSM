@@ -39,8 +39,6 @@ public class ListEquipmentsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_equipments);
         bt_equipmentAdd = findViewById(R.id.bt_equipmentAdd);
 
-
-
         /////////////////////////////////////////////// SPINNER UPDATE ////////////////////////////////////////
 
         spinner_category_search = findViewById(R.id.spinner_category_search);
@@ -75,7 +73,6 @@ public class ListEquipmentsActivity extends AppCompatActivity {
 
                 if (i == 1) {
                     SearchForCategory("Computadores");
-                    Toast.makeText(ListEquipmentsActivity.this, String.valueOf(i), Toast.LENGTH_SHORT).show();
                 } else if (i == 2) {
                     SearchForCategory("Monitores");
                 } else if (i == 3) {

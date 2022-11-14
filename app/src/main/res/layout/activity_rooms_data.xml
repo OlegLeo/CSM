@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient_dark"
     android:orientation="vertical"
-    android:background="@color/primary_color"
+    android:padding="16dp"
     tools:context=".RoomsDataActivity">
 
 
@@ -31,7 +32,7 @@
                     android:layout_marginLeft="5sp"
                     android:layout_weight="1"
                     android:text="Nome:"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
 
                 <EditText
                     android:id="@+id/et_dataRoomsName"
@@ -39,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
 
             </LinearLayout>
 
@@ -56,7 +57,7 @@
                     android:layout_marginLeft="5sp"
                     android:layout_weight="1"
                     android:text="Designação:"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
 
                 <EditText
                     android:id="@+id/et_dataDesignation"
@@ -64,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
                     android:gravity="center"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
@@ -77,22 +78,25 @@
                     android:id="@+id/bt_dataRoomEdit"
                     android:layout_width="190dp"
                     android:layout_height="wrap_content"
-                    android:text="Confirmar edição"
-                    android:backgroundTint="@color/secondary_color"/>
+                    android:layout_marginHorizontal="10dp"
+                    android:backgroundTint="@color/secondary_color"
+                    android:text="Confirmar edição" />
 
                 <Button
                     android:id="@+id/bt_dataRoomBack"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="@color/secondary_color"
                     android:text="Voltar"
-                    android:backgroundTint="@color/secondary_color"/>
+                    android:visibility="gone" />
 
                 <Button
                     android:id="@+id/bt_dataRoomDelete"
                     android:layout_width="110dp"
                     android:layout_height="wrap_content"
-                    android:text="Eliminar"
-                    android:backgroundTint="@color/secondary_color"/>
+                    android:layout_marginHorizontal="10dp"
+                    android:backgroundTint="@color/delete"
+                    android:text="Eliminar" />
 
             </LinearLayout>
 
@@ -104,17 +108,28 @@
                 android:gravity="center"
                 android:text="Lista de Equipamentos"
                 android:textColor="@color/white"
-                android:textSize="25sp"/>
-
-            <Spinner
-                android:id="@+id/spinnerInRoom_category_search"
-                android:layout_width="250dp"
-                android:layout_height="40dp"
-                android:backgroundTint="@color/white"
-                android:textSize="100sp"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="1dp" />
+                android:textSize="28sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Categorias: "
+                    android:layout_marginRight="6dp"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"/>
+                <Spinner
+                    android:id="@+id/spinnerInRoom_category_search"
+                    android:layout_width="250dp"
+                    android:layout_height="40dp"
+                    android:backgroundTint="@color/white"
+                    android:textSize="100sp"
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="16dp"
+                    tools:layout_editor_absoluteY="1dp" />
+            </LinearLayout>
         </LinearLayout>
 
 

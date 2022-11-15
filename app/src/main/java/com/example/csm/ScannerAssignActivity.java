@@ -2,6 +2,7 @@ package com.example.csm;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -9,12 +10,15 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,16 +45,32 @@ public class ScannerAssignActivity extends AppCompatActivity {
     private TextView scannedText, tv_assign_scanned_info;
     private BarcodeDetector barcodeDetector;
     private Button bt_assign_scan;
+    private ImageView gif_scanner_assign_check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner_assign);
 
+        ////////////////////////////////// CHANGE COLOR ACTION BAR/////////////////////
+        // Define ActionBar object
+        ActionBar actionBar;
+        actionBar = getSupportActionBar();
+        // Define ColorDrawable object and parse color
+        // using parseColor method
+        // with color hash code as its parameter
+        ColorDrawable colorDrawable
+                = new ColorDrawable(Color.parseColor("#25183E"));
+        // Set BackgroundDrawable
+        actionBar.setBackgroundDrawable(colorDrawable);
+        getSupportActionBar().setTitle("Associar");
+        ///////////////////////////////////////////////////////////////////////////////
+
         surfaceView = findViewById(R.id.sv_assign_camera);
         scannedText = findViewById(R.id.tv_assign_text_scanned);
         bt_assign_scan = findViewById(R.id.bt_assign_scan);
         tv_assign_scanned_info = findViewById(R.id.tv_assign_scanned_info);
+        gif_scanner_assign_check = findViewById(R.id.gif_scanner_assign_check);
 
         Intent i = getIntent();
         Bundle extras = i.getExtras();
@@ -133,6 +153,7 @@ public class ScannerAssignActivity extends AppCompatActivity {
                             scannedText.setText(qrcode.valueAt(0).displayValue);
                             tv_assign_scanned_info.setText("QR Code lido com sucesso.");
                             bt_assign_scan.setVisibility(View.VISIBLE);
+                            gif_scanner_assign_check.setVisibility(View.VISIBLE);
                         }
                     });
                 }

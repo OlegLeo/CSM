@@ -84,7 +84,12 @@ dependencies {
     // FirebaseUI for Cloud Storage
     implementation 'com.firebaseui:firebase-ui-storage:8.0.2'
 
-    //sada
     //circleview
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+    //gifs
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
+
+
+
 }

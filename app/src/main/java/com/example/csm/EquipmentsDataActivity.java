@@ -2,12 +2,15 @@ package com.example.csm;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,6 +67,21 @@ public class EquipmentsDataActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_equipments_data);
+
+        ////////////////////////////////// CHANGE COLOR ACTION BAR/////////////////////
+        // Define ActionBar object
+        ActionBar actionBar;
+        actionBar = getSupportActionBar();
+        // Define ColorDrawable object and parse color
+        // using parseColor method
+        // with color hash code as its parameter
+        ColorDrawable colorDrawable
+                = new ColorDrawable(Color.parseColor("#25183E"));
+        // Set BackgroundDrawable
+        actionBar.setBackgroundDrawable(colorDrawable);
+        getSupportActionBar().setTitle("Detalhe do Equipamento");
+        ///////////////////////////////////////////////////////////////////////////////
+
         viewHolder.iv_dataPhoto = findViewById(R.id.iv_dataPhoto);
 
         viewHolder.et_dataName = findViewById(R.id.et_dataName);
@@ -79,8 +98,10 @@ public class EquipmentsDataActivity extends AppCompatActivity {
 
         viewHolder.spinner_equipment_category_edit = findViewById(R.id.spinner_equipment_category_edit);
 
-        /// ROOMS NAME SPINENR UPDATE //
+        /// ROOMS NAME SPINNER UPDATE //
         viewHolder.spinner_roomsName_list = findViewById(R.id.spinner_roomsName_list);
+
+        viewHolder.ll_dataAssign = findViewById(R.id.ll_dataAssign);
 
         i = getIntent();
 
@@ -101,6 +122,9 @@ public class EquipmentsDataActivity extends AppCompatActivity {
                         //viewHolder.et_dataRoomId.setText(documentSnapshot.getData().get("roomId").toString());
                         viewHolder.et_dataAssign.setText(documentSnapshot.getData().get("assign").toString());
                         viewHolder.tv_dataDocId.setText(documentSnapshot.getId());
+
+                        if (viewHolder.et_dataAssign.length() > 0)
+                            viewHolder.ll_dataAssign.setVisibility(View.VISIBLE);
 
                         //////////////////////////////// -----> //  SPINNER UPDATE // <------ // ////////////////////////////////////////
 
@@ -409,6 +433,7 @@ public class EquipmentsDataActivity extends AppCompatActivity {
         Button bt_dataEdit, bt_dataDelete, bt_dataCancel, bt_dataOk, bt_dataGenQRCode, bt_dataScanQRCode;
         TextView tv_dataDocId;
         Spinner spinner_equipment_category_edit, spinner_roomsName_list;
+        LinearLayout ll_dataAssign;
     }
 
 

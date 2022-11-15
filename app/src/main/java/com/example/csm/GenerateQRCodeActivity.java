@@ -1,9 +1,12 @@
 package com.example.csm;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -34,6 +37,20 @@ public class GenerateQRCodeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_qrcode);
+
+        ////////////////////////////////// CHANGE COLOR ACTION BAR/////////////////////
+        // Define ActionBar object
+        ActionBar actionBar;
+        actionBar = getSupportActionBar();
+        // Define ColorDrawable object and parse color
+        // using parseColor method
+        // with color hash code as its parameter
+        ColorDrawable colorDrawable
+                = new ColorDrawable(Color.parseColor("#25183E"));
+        // Set BackgroundDrawable
+        actionBar.setBackgroundDrawable(colorDrawable);
+        getSupportActionBar().setTitle("Gerar QR Code");
+        ///////////////////////////////////////////////////////////////////////////////
 
         bt_generate = findViewById(R.id.bt_generate);
         bt_download = findViewById(R.id.bt_download);

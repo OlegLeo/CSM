@@ -1,10 +1,13 @@
 package com.example.csm;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,6 +42,20 @@ public class ListEquipmentsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_equipments);
         bt_equipmentAdd = findViewById(R.id.bt_equipmentAdd);
 
+        ////////////////////////////////// CHANGE COLOR ACTION BAR/////////////////////
+        // Define ActionBar object
+        ActionBar actionBar;
+        actionBar = getSupportActionBar();
+        // Define ColorDrawable object and parse color
+        // using parseColor method
+        // with color hash code as its parameter
+        ColorDrawable colorDrawable
+                = new ColorDrawable(Color.parseColor("#25183E"));
+        // Set BackgroundDrawable
+        actionBar.setBackgroundDrawable(colorDrawable);
+        getSupportActionBar().setTitle("Equipamentos");
+        ///////////////////////////////////////////////////////////////////////////////
+
         /////////////////////////////////////////////// SPINNER UPDATE ////////////////////////////////////////
 
         spinner_category_search = findViewById(R.id.spinner_category_search);
@@ -56,12 +73,11 @@ public class ListEquipmentsActivity extends AppCompatActivity {
         categoryList.add("Outros");
 
 
-
         // - POPULATING SPINNER - //
 
         //ArrayAdapter aa = new ArrayAdapter(ListEquipmentsActivity.this, android.R.layout.simple_spinner_item, categoryList);
         //aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ArrayAdapter aa = new ArrayAdapter(ListEquipmentsActivity.this,R.layout.spinner_item, categoryList);
+        ArrayAdapter aa = new ArrayAdapter(ListEquipmentsActivity.this, R.layout.spinner_item, categoryList);
         spinner_category_search.setAdapter(aa);
 
 
@@ -77,9 +93,9 @@ public class ListEquipmentsActivity extends AppCompatActivity {
                     SearchForCategory("Monitores");
                 } else if (i == 3) {
                     SearchForCategory("Periféricos");
-                }else if (i == 4) {
+                } else if (i == 4) {
                     SearchForCategory("Mobiliário");
-                }else if (i == 5) {
+                } else if (i == 5) {
                     SearchForCategory("Outros");
                 } else {
                     SearchForAll();
@@ -98,7 +114,6 @@ public class ListEquipmentsActivity extends AppCompatActivity {
 
 
         //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
 
         setUpRecyclerView();
@@ -151,7 +166,7 @@ public class ListEquipmentsActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.search,menu);
+        getMenuInflater().inflate(R.menu.search, menu);
         MenuItem item = menu.findItem(R.id.search);
         SearchView searchView = (SearchView) item.getActionView();
 
@@ -172,8 +187,8 @@ public class ListEquipmentsActivity extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    private void txtSearch(String str){
-        Query query = equipRef.orderBy("name", Query.Direction.ASCENDING).startAt(str).endAt(str+"~");
+    private void txtSearch(String str) {
+        Query query = equipRef.orderBy("name", Query.Direction.ASCENDING).startAt(str).endAt(str + "~");
         FirestoreRecyclerOptions<Equipments> options = new FirestoreRecyclerOptions.Builder<Equipments>()
                 .setQuery(query, Equipments.class).build();
 
@@ -199,7 +214,6 @@ public class ListEquipmentsActivity extends AppCompatActivity {
 
 //  --------->>>>             //////////////////////////////////// END ///////////////////////////////////
     }
-
 
 
     /////////////////////////////////// SEARCHING FOR CATEGORIES ///////////////////////////////////////
@@ -232,7 +246,6 @@ public class ListEquipmentsActivity extends AppCompatActivity {
 //  --------->>>>             //////////////////////////////////// END ///////////////////////////////////
 
 
-
 /////////////////////////////////// SEARCHING FOR ALL ///////////////////////////////////////
 
     private void SearchForAll() {
@@ -261,10 +274,8 @@ public class ListEquipmentsActivity extends AppCompatActivity {
         });
 
 
-
     }
 //  --------->>>>             //////////////////////////////////// END ///////////////////////////////////
-
 
 
     /////

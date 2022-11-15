@@ -1,10 +1,13 @@
 package com.example.csm;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -39,6 +42,20 @@ public class LoginActivity extends AppCompatActivity {
         bt_Login = findViewById(R.id.bt_Login);
         tv_password_recovery = findViewById(R.id.tv_password_recovery);
         tv_RegisterHere = findViewById(R.id.tv_RegisterHere);
+
+        ////////////////////////////////// CHANGE COLOR ACTION BAR/////////////////////
+        // Define ActionBar object
+        ActionBar actionBar;
+        actionBar = getSupportActionBar();
+        // Define ColorDrawable object and parse color
+        // using parseColor method
+        // with color hash code as its parameter
+        ColorDrawable colorDrawable
+                = new ColorDrawable(Color.parseColor("#25183E"));
+        // Set BackgroundDrawable
+        actionBar.setBackgroundDrawable(colorDrawable);
+        //getSupportActionBar().setTitle("");
+        ///////////////////////////////////////////////////////////////////////////////
 
         mAuth = FirebaseAuth.getInstance();
 

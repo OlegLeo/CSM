@@ -4,10 +4,13 @@ package com.example.csm;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
@@ -41,6 +44,19 @@ public class UserAccountActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_account);
+
+        ////////////////////////////////// CHANGE COLOR ACTION BAR/////////////////////
+        // Define ActionBar object
+        ActionBar actionBar;
+        actionBar = getSupportActionBar();
+        // Define ColorDrawable object and parse color
+        // using parseColor method
+        // with color hash code as its parameter
+        ColorDrawable colorDrawable
+                = new ColorDrawable(Color.parseColor("#25183E"));
+        // Set BackgroundDrawable
+        actionBar.setBackgroundDrawable(colorDrawable);
+        ///////////////////////////////////////////////////////////////////////////////
 
         et_edit_user_email = findViewById(R.id.et_edit_user_email);
         bt_edit_user_resetPassword = findViewById(R.id.bt_edit_user_resetPassword);
@@ -85,39 +101,48 @@ public class UserAccountActivity extends AppCompatActivity {
                 bt_edit_user_confirm_passoword.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if (!et_confirm_editEmail_password.getText().toString().isEmpty()) {
 
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        // Get auth credentials from the user for re-authentication
-                        AuthCredential credential = EmailAuthProvider
-                                .getCredential(String.valueOf(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail()), et_confirm_editEmail_password.getText().toString()); // Current Login Credentials \\
-                        // Prompt the user to re-provide their sign-in credentials
-                        user.reauthenticate(credential)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        //Toast.makeText(UserAccountActivity.this, "User re-authenticated.", Toast.LENGTH_SHORT).show();
-                                        //Log.d(TAG, "User re-authenticated.");
-                                        //Now change your email address \\
-                                        //----------------Code for Changing Email Address----------\\
-                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                        user.updateEmail(et_edit_user_email.getText().toString())
-                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                            //Log.d(TAG, "User email address updated.");
-                                                            Toast.makeText(UserAccountActivity.this, "Email atualizado com sucesso!", Toast.LENGTH_SHORT).show();
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            // Get auth credentials from the user for re-authentication
+                            AuthCredential credential = EmailAuthProvider
+                                    .getCredential(String.valueOf(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail()), et_confirm_editEmail_password.getText().toString()); // Current Login Credentials \\
+                            // Prompt the user to re-provide their sign-in credentials
+                            user.reauthenticate(credential)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            //Toast.makeText(UserAccountActivity.this, "User re-authenticated.", Toast.LENGTH_SHORT).show();
+                                            //Log.d(TAG, "User re-authenticated.");
+                                            //Now change your email address \\
+                                            //----------------Code for Changing Email Address----------\\
+
+                                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                            user.updateEmail(et_edit_user_email.getText().toString())
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if (task.isSuccessful()) {
+                                                                //Log.d(TAG, "User email address updated.");
+                                                                Toast.makeText(UserAccountActivity.this, "Email atualizado com sucesso!", Toast.LENGTH_SHORT).show();
+                                                            }
                                                         }
-                                                    }
-                                                });
-                                        //----------------------------------------------------------\\
+                                                    });
 
-                                    }
-                                });
 
-                        finish();
-                        Intent i = new Intent(UserAccountActivity.this, MenuActivity.class);
-                        startActivity(i);
+                                            //----------------------------------------------------------\\
+
+                                        }
+                                    });
+
+                            finish();
+                            Intent i = new Intent(UserAccountActivity.this, MenuActivity.class);
+                            startActivity(i);
+                        }else {
+                            Toast.makeText(UserAccountActivity.this, "Por favor, confirme a password antes de avançar!", Toast.LENGTH_SHORT).show();
+                        }
+
+
 
                     }
                 });
@@ -188,42 +213,48 @@ public class UserAccountActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
 
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        // Get auth credentials from the user for re-authentication
-                        AuthCredential credential = EmailAuthProvider
-                                .getCredential(String.valueOf(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail()), et_confirm_editEmail_password.getText().toString()); // Current Login Credentials \\
-                        // Prompt the user to re-provide their sign-in credentials
-                        user.reauthenticate(credential)
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        //Toast.makeText(UserAccountActivity.this, "User re-authenticated.", Toast.LENGTH_SHORT).show();
-                                        //Log.d(TAG, "User re-authenticated.");
-                                        //Now removing user \\
-                                        //----------------Code for REMOVING USER's ACCOUNT ----------\\
+                        if (!et_confirm_editEmail_password.getText().toString().isEmpty()) {
 
-                                        // DELETING USER
-                                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            // Get auth credentials from the user for re-authentication
+                            AuthCredential credential = EmailAuthProvider
+                                    .getCredential(String.valueOf(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail()), et_confirm_editEmail_password.getText().toString()); // Current Login Credentials \\
+                            // Prompt the user to re-provide their sign-in credentials
+                            user.reauthenticate(credential)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            //Toast.makeText(UserAccountActivity.this, "User re-authenticated.", Toast.LENGTH_SHORT).show();
+                                            //Log.d(TAG, "User re-authenticated.");
+                                            //Now removing user \\
+                                            //----------------Code for REMOVING USER's ACCOUNT ----------\\
 
-                                        user.delete()
-                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-                                                            //Log.d(TAG, "User account deleted.");
-                                                            Toast.makeText(UserAccountActivity.this, "Conta removida com sucesso!", Toast.LENGTH_SHORT).show();
+                                            // DELETING USER
+                                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                                            user.delete()
+                                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        @Override
+                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                            if (task.isSuccessful()) {
+                                                                //Log.d(TAG, "User account deleted.");
+                                                                Toast.makeText(UserAccountActivity.this, "Conta removida com sucesso!", Toast.LENGTH_SHORT).show();
+                                                            }
                                                         }
-                                                    }
-                                                });
+                                                    });
 
-                                    }
-                                });
-                        //////
+                                        }
+                                    });
+                            //////
 
-                        // GOING TO A LOGIN ACTIVITY
-                        finish();
-                        Intent i = new Intent(UserAccountActivity.this, LoginActivity.class);
-                        startActivity(i);
+                            // GOING TO A LOGIN ACTIVITY
+                            finish();
+                            Intent i = new Intent(UserAccountActivity.this, LoginActivity.class);
+                            startActivity(i);
+                        }else {
+                            Toast.makeText(UserAccountActivity.this, "Por favor, confirme a password antes de avançar!", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
 
 

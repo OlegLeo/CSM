@@ -1,6 +1,7 @@
 package com.example.csm;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -8,12 +9,15 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,16 +37,32 @@ public class ScannerActivity extends AppCompatActivity {
     private TextView scannedText, tv_scanned_info;
     private BarcodeDetector barcodeDetector;
     private Button bt_open_scan;
+    private ImageView gif_scanner_check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner);
 
+        ////////////////////////////////// CHANGE COLOR ACTION BAR/////////////////////
+        // Define ActionBar object
+        ActionBar actionBar;
+        actionBar = getSupportActionBar();
+        // Define ColorDrawable object and parse color
+        // using parseColor method
+        // with color hash code as its parameter
+        ColorDrawable colorDrawable
+                = new ColorDrawable(Color.parseColor("#25183E"));
+        // Set BackgroundDrawable
+        actionBar.setBackgroundDrawable(colorDrawable);
+        getSupportActionBar().setTitle("QR Code");
+        ///////////////////////////////////////////////////////////////////////////////
+
         surfaceView = findViewById(R.id.sv_camera);
         scannedText = findViewById(R.id.tv_text_scanned);
         bt_open_scan = findViewById(R.id.bt_open_scan);
         tv_scanned_info = findViewById(R.id.tv_scanned_info);
+        gif_scanner_check = findViewById(R.id.gif_scanner_check);
 
 
         ////////////////////////////ABRE O EQUIPAMENTO DO ID QUE FEZ SCAN///////////////////////
@@ -60,7 +80,7 @@ public class ScannerActivity extends AppCompatActivity {
 
         //INICIA O DETECTOR DE QR E A CAMARA
         barcodeDetector = new BarcodeDetector.Builder(getApplicationContext()).setBarcodeFormats(Barcode.QR_CODE).build();
-        cameraSource = new CameraSource.Builder(getApplicationContext(), barcodeDetector).setRequestedPreviewSize(640, 480).build();
+        cameraSource = new CameraSource.Builder(getApplicationContext(), barcodeDetector).setRequestedPreviewSize(1280, 960).build();
 
         ////////////////////////////ASSOCIA A CAMARA AO SURFACE VIEW, CASO TENHA AUTORIZAÇÃO/////////////////////
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
@@ -105,6 +125,7 @@ public class ScannerActivity extends AppCompatActivity {
                             scannedText.setText(qrcode.valueAt(0).displayValue);
                             tv_scanned_info.setText("QR Code lido com sucesso.");
                             bt_open_scan.setVisibility(View.VISIBLE);
+                            gif_scanner_check.setVisibility(View.VISIBLE);
                         }
                     });
                 }

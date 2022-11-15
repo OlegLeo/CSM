@@ -38,11 +38,20 @@
         android:textColor="@color/white"
         android:textSize="25sp" />
 
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/gif_scanner_assign_check"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="30dp"
+        android:visibility="invisible"
+        android:src="@drawable/giphy" />
+
     <Button
         android:id="@+id/bt_assign_scan"
         android:layout_width="200dp"
         android:layout_height="70dp"
-        android:layout_marginTop="32dp"
         android:textAllCaps="false"
         android:backgroundTint="@color/secondary_color"
         android:text="Associar"

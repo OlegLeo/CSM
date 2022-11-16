@@ -24,6 +24,7 @@ public class RoomsAdapter extends FirestoreRecyclerAdapter<Rooms,RoomsAdapter.Ro
     protected void onBindViewHolder(@NonNull RoomsHolder holder, int position, @NonNull Rooms model) {
 
         holder.tv_nameRoom.setText(model.roomName);
+        holder.tv_descRoom.setText(model.designation);
     }
 
     @NonNull
@@ -35,12 +36,13 @@ public class RoomsAdapter extends FirestoreRecyclerAdapter<Rooms,RoomsAdapter.Ro
 
     class RoomsHolder extends RecyclerView.ViewHolder{
 
-        TextView tv_nameRoom;
+        TextView tv_nameRoom, tv_descRoom;
 
         public RoomsHolder(@NonNull View itemView) {
             super(itemView);
 
             tv_nameRoom = itemView.findViewById(R.id.tv_nameRoom);
+            tv_descRoom = itemView.findViewById(R.id.tv_descRoom);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

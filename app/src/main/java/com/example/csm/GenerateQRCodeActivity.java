@@ -30,7 +30,7 @@ public class GenerateQRCodeActivity extends AppCompatActivity {
 
     private Button bt_generate, bt_download, bt_email;
     private ImageView iv_output;
-    private String email = "cesaestockmanagment@gmail.com";
+    private String email = "cesaestockmanagement@gmail.com";
     private TextView tv_doc_id, tv_name;
 
     @Override

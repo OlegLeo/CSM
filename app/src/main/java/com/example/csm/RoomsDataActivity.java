@@ -346,7 +346,7 @@ public class RoomsDataActivity extends AppCompatActivity {
     /////////////////////////////////// SEARCHING FOR CATEGORIES ///////////////////////////////////////
 
     private void SearchForCategory(String category) {
-        query = equipRef.whereEqualTo("roomId", roomName).whereEqualTo("category", category);
+        query = equipRef.whereEqualTo("roomId", roomName).whereEqualTo("category", category).orderBy("name", Query.Direction.ASCENDING);
         //Query query = equipRef.orderBy("name", Query.Direction.ASCENDING).startAt(str).endAt(str+"~");
         FirestoreRecyclerOptions<Equipments> options = new FirestoreRecyclerOptions.Builder<Equipments>()
                 .setQuery(query, Equipments.class).build();
@@ -376,7 +376,7 @@ public class RoomsDataActivity extends AppCompatActivity {
 /////////////////////////////////// SEARCHING FOR ALL ///////////////////////////////////////
 
     private void SearchForAll() {
-        query = equipRef.whereEqualTo("roomId", roomName);
+        query = equipRef.whereEqualTo("roomId", roomName).orderBy("name", Query.Direction.ASCENDING);
         //query = equipRef.whereEqualTo("category", category);
         //Query query = equipRef.orderBy("name", Query.Direction.ASCENDING).startAt(str).endAt(str+"~");
         FirestoreRecyclerOptions<Equipments> options = new FirestoreRecyclerOptions.Builder<Equipments>()

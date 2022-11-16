@@ -1,10 +1,12 @@
 package com.example.csm;
 
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -32,8 +34,11 @@ public class EquipmentsAdapter extends FirestoreRecyclerAdapter<Equipments, Equi
         holder.tv_brandEquip.setText(model.getBrand());
         /// Converte e envia a imagem para circleimageview ///
         uri_image = Uri.parse(model.getPhoto());
-        if (!uri_image.toString().isEmpty())
+        if (!uri_image.toString().isEmpty()) {
             Picasso.get().load(uri_image).into(holder.civ_photoEquip);
+        } else {
+            holder.civ_photoEquip.setImageResource(R.drawable.logo_cesae_icon);
+        }
     }
 
     @NonNull

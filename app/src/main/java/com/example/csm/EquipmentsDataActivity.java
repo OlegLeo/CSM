@@ -61,6 +61,7 @@ public class EquipmentsDataActivity extends AppCompatActivity {
     boolean isEdit = false;
     //////////////////////////////////////////////////// SPINNER UPDATE ////////////////////////////////////////////////
     String newSelectedCategory = "";
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @Override
@@ -167,10 +168,10 @@ public class EquipmentsDataActivity extends AppCompatActivity {
                                 index = 0;
                             }
                         }
-//Toast.makeText(EquipmentsDataActivity.this, String.valueOf(index), Toast.LENGTH_SHORT).show();
-// FINDING THE POSITION OF CATEGORY INSIDE SPINNER
+                        //Toast.makeText(EquipmentsDataActivity.this, String.valueOf(index), Toast.LENGTH_SHORT).show();
+                        // FINDING THE POSITION OF CATEGORY INSIDE SPINNER
                         viewHolder.spinner_equipment_category_edit.setSelection(index);
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                         try {
                             Picasso.get().load(documentSnapshot.getData().get("photo").toString()).into(viewHolder.iv_dataPhoto);
                         } catch (Exception e) {
@@ -190,7 +191,7 @@ public class EquipmentsDataActivity extends AppCompatActivity {
         //////// --------------->> TESTE SPINNER SALAS <<---------------- /////////
 
 
-//FirebaseFirestore db = FirebaseFirestore.getInstance();
+        //FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference notebookRef = db.collection("Rooms");
 
         notebookRef.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -302,11 +303,18 @@ public class EquipmentsDataActivity extends AppCompatActivity {
         viewHolder.bt_dataEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateEquip();
-                uploadPhoto();
-                Toast.makeText(EquipmentsDataActivity.this, "Equipamento editado com sucesso.", Toast.LENGTH_SHORT).show();
-                finish();
+
+                if (viewHolder.et_dataName.getText().toString().isEmpty() || viewHolder.et_dataBrand.getText().toString().isEmpty() || newSelectedCategory.equals("Selecione uma opção")) {
+                    Toast.makeText(EquipmentsDataActivity.this, "Por favor, preencha os dados antes de avançar!", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    updateEquip();
+                    uploadPhoto();
+                    Toast.makeText(EquipmentsDataActivity.this, "Equipamento editado com sucesso.", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
             }
+
         });
 
         viewHolder.bt_dataDelete.setOnClickListener(new View.OnClickListener() {

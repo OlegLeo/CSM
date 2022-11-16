@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:text="Menu"
-        android:textSize="40dp"
+        android:textSize="45dp"
         android:paddingBottom="30dp"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,6 +35,7 @@
         android:layout_height="70dp"
         android:backgroundTint="@color/secondary_color"
         android:padding="5dp"
+        android:textSize="17sp"
         android:textAllCaps="false"
         android:layout_margin="10dp"
         android:text="Salas"/>
@@ -45,6 +46,7 @@
         android:layout_height="70dp"
         android:backgroundTint="@color/secondary_color"
         android:padding="5dp"
+        android:textSize="17sp"
         android:layout_margin="10dp"
         android:textAllCaps="false"
         android:text="Equipamentos"/>
@@ -59,6 +61,7 @@
         android:layout_height="70dp"
         android:backgroundTint="@color/secondary_color"
         android:padding="5dp"
+        android:textSize="17sp"
         android:layout_margin="10dp"
         android:textAllCaps="false"
         android:text="Ler QRcode"/>
@@ -69,6 +72,7 @@
         android:layout_height="70dp"
         android:backgroundTint="@color/secondary_color"
         android:padding="5dp"
+        android:textSize="17sp"
         android:layout_margin="10dp"
         android:textAllCaps="false"
         android:text="Conta"/>
@@ -81,7 +85,8 @@
         android:backgroundTint="@color/secondary_color"
         android:padding="5dp"
         android:textAllCaps="false"
-        android:layout_margin="10dp"
+        android:textSize="17sp"
+        android:layout_marginTop="60dp"
         android:text="Sair"/>
 
 

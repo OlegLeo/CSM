@@ -49,15 +49,16 @@ public class newRoomActivity extends AppCompatActivity {
                 String roomName = viewHolder.et_newRoomName.getText().toString();
                 String designation = viewHolder.et_newRoomDesignation.getText().toString();
 
-                if(roomName.trim().isEmpty() || designation.trim().isEmpty()){
+                if (roomName.trim().isEmpty() || designation.trim().isEmpty()) {
                     Toast.makeText(newRoomActivity.this, "Preencher todos os campos.", Toast.LENGTH_SHORT).show();
-                }
+                } else {
 
-                CollectionReference reference = FirebaseFirestore.getInstance().collection("Rooms");
-                reference.add(new Rooms(roomName, designation));
-                Toast.makeText(newRoomActivity.this, "Nova sala adicionada.", Toast.LENGTH_SHORT).show();
-                clearAll();
-                finish();
+                    CollectionReference reference = FirebaseFirestore.getInstance().collection("Rooms");
+                    reference.add(new Rooms(roomName, designation));
+                    Toast.makeText(newRoomActivity.this, "Nova sala adicionada.", Toast.LENGTH_SHORT).show();
+                    clearAll();
+                    finish();
+                }
             }
         });
 
@@ -69,10 +70,11 @@ public class newRoomActivity extends AppCompatActivity {
         });
     }
 
-    private class ViewHolder{
+    private class ViewHolder {
         EditText et_newRoomName, et_newRoomDesignation;
         Button bt_newRoomAdd, bt_newRoomBack;
     }
+
     private void clearAll() {
         viewHolder.et_newRoomName.setText("");
         viewHolder.et_newRoomDesignation.setText("");

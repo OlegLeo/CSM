@@ -67,7 +67,7 @@ public class GenerateQRCodeActivity extends AppCompatActivity {
         String name = extras.getString("name");
 
         tv_doc_id.setText(docId);
-        tv_name.setText("Nome: " + name);
+        tv_name.setText(name);
 
         String textName = tv_name.getText().toString();
 

@@ -196,33 +196,6 @@
             android:textColor="@color/white" />
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:gravity="center_horizontal"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/bt_dataEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginHorizontal="10dp"
-            android:backgroundTint="@color/secondary_color"
-            android:text="Confirmar edição"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/bt_dataDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_marginHorizontal="10dp"
-            android:backgroundTint="@color/delete"
-            android:text="Eliminar" />
-
-    </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -232,7 +205,7 @@
 
         <Button
             android:id="@+id/bt_dataGenQRCode"
-            android:layout_width="wrap_content"
+            android:layout_width="150sp"
             android:layout_height="60dp"
             android:layout_marginHorizontal="10dp"
             android:backgroundTint="@color/secondary_color"
@@ -241,7 +214,7 @@
 
         <Button
             android:id="@+id/bt_dataScanQRCode"
-            android:layout_width="wrap_content"
+            android:layout_width="170sp"
             android:layout_height="60dp"
             android:layout_marginHorizontal="10dp"
             android:backgroundTint="@color/secondary_color"
@@ -249,6 +222,38 @@
             android:text="Associar"
             android:textAllCaps="false" />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/bt_dataDelete"
+            android:layout_width="150sp"
+            android:layout_height="60dp"
+            android:textSize="15sp"
+            android:layout_marginHorizontal="10dp"
+            android:backgroundTint="@color/delete"
+            android:text="Eliminar" />
+
+        <Button
+            android:id="@+id/bt_dataEdit"
+            android:layout_width="170sp"
+            android:layout_height="60dp"
+            android:layout_marginHorizontal="10dp"
+            android:backgroundTint="@color/secondary_color"
+            android:text="Confirmar edição"
+            android:textSize="15sp"
+            android:textAllCaps="false" />
+
+
+
+    </LinearLayout>
+
+
 
 
 </LinearLayout>

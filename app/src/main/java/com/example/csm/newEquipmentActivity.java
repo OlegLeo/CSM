@@ -199,7 +199,7 @@ public class newEquipmentActivity extends AppCompatActivity {
 
 
 //  --------->>>>           // VERIFY IF THE INPUTS ARE EMPTY      ----->>>>>>   //////////////// SPINNER UPDATE VALIDATION //////////////////
-                if (name.trim().isEmpty() || brand.trim().isEmpty() || description.trim().isEmpty() || newSelectedCategory.equals(categoryList.get(0))) {
+                if (name.trim().isEmpty() || brand.trim().isEmpty() || newSelectedCategory.equals(categoryList.get(0))) {
                     Toast.makeText(newEquipmentActivity.this, "Preencher todos os campos", Toast.LENGTH_SHORT).show();
 
                 } else {
@@ -217,9 +217,9 @@ public class newEquipmentActivity extends AppCompatActivity {
                                 CollectionReference reference = FirebaseFirestore.getInstance().collection("Equipments");
                                 reference.add(new Equipments(name, brand, description, photo, roomId, assign, newSelectedCategory)); /// spinner update
 
-                                Toast.makeText(newEquipmentActivity.this, "Novo equipamento adicionado", Toast.LENGTH_SHORT).show();
+
                                 clearAll();
-                                finish();
+
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -245,7 +245,10 @@ public class newEquipmentActivity extends AppCompatActivity {
                     }*/
 
                     //
+                    Toast.makeText(newEquipmentActivity.this, "Novo equipamento adicionado", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
+
             }
         });
 

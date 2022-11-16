@@ -74,7 +74,7 @@ public class RoomsDataActivity extends AppCompatActivity {
                 = new ColorDrawable(Color.parseColor("#25183E"));
         // Set BackgroundDrawable
         actionBar.setBackgroundDrawable(colorDrawable);
-        getSupportActionBar().setTitle("Detalhe da Sala");
+        getSupportActionBar().setTitle("Pesquisar equipamento");
         ///////////////////////////////////////////////////////////////////////////////
 
         viewHolder.et_dataRoomsName = findViewById(R.id.et_dataRoomsName);
@@ -223,6 +223,7 @@ public class RoomsDataActivity extends AppCompatActivity {
             public void onClick(View v) {
                 docRef.update("roomName", viewHolder.et_dataRoomsName.getText().toString());
                 docRef.update("designation", viewHolder.et_dataDesignation.getText().toString());
+                Toast.makeText(RoomsDataActivity.this, "Sala editada com sucesso.", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

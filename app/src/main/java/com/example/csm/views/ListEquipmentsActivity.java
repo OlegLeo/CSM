@@ -1,4 +1,4 @@
-package com.example.csm;
+package com.example.csm.views;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,8 +16,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.SearchView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+import com.example.csm.R;
+import com.example.csm.adapter.EquipmentsAdapter;
+import com.example.csm.model.Equipments;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.CollectionReference;

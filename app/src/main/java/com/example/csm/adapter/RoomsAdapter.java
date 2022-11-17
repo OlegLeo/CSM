@@ -1,4 +1,4 @@
-package com.example.csm;
+package com.example.csm.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.csm.R;
+import com.example.csm.model.Rooms;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -23,8 +25,8 @@ public class RoomsAdapter extends FirestoreRecyclerAdapter<Rooms,RoomsAdapter.Ro
     @Override
     protected void onBindViewHolder(@NonNull RoomsHolder holder, int position, @NonNull Rooms model) {
 
-        holder.tv_nameRoom.setText(model.roomName);
-        holder.tv_descRoom.setText(model.designation);
+        holder.tv_nameRoom.setText(model.getRoomName());
+        holder.tv_descRoom.setText(model.getDesignation());
     }
 
     @NonNull

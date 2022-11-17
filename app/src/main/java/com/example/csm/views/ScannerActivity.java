@@ -1,7 +1,6 @@
-package com.example.csm;
+package com.example.csm.views;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -22,35 +21,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.csm.R;
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.io.IOException;
 
-public class ScannerAssignActivity extends AppCompatActivity {
+public class ScannerActivity extends AppCompatActivity {
 
     public static final int CAMERA_PERMISSION_CODE = 100;
 
     private SurfaceView surfaceView;
     private CameraSource cameraSource;
-    private TextView scannedText, tv_assign_scanned_info;
+    private TextView scannedText, tv_scanned_info;
     private BarcodeDetector barcodeDetector;
-    private Button bt_assign_scan;
-    private ImageView gif_scanner_assign_check;
+    private Button bt_open_scan;
+    private ImageView gif_scanner_check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scanner_assign);
+        setContentView(R.layout.activity_scanner);
 
         ////////////////////////////////// CHANGE COLOR ACTION BAR/////////////////////
         // Define ActionBar object
@@ -63,52 +56,32 @@ public class ScannerAssignActivity extends AppCompatActivity {
                 = new ColorDrawable(Color.parseColor("#25183E"));
         // Set BackgroundDrawable
         actionBar.setBackgroundDrawable(colorDrawable);
-        getSupportActionBar().setTitle("Associar");
+        getSupportActionBar().setTitle("QR Code");
         ///////////////////////////////////////////////////////////////////////////////
 
-        surfaceView = findViewById(R.id.sv_assign_camera);
-        scannedText = findViewById(R.id.tv_assign_text_scanned);
-        bt_assign_scan = findViewById(R.id.bt_assign_scan);
-        tv_assign_scanned_info = findViewById(R.id.tv_assign_scanned_info);
-        gif_scanner_assign_check = findViewById(R.id.gif_scanner_assign_check);
-
-        Intent i = getIntent();
-        Bundle extras = i.getExtras();
-        String docId = extras.getString("docId");
+        surfaceView = findViewById(R.id.sv_camera);
+        scannedText = findViewById(R.id.tv_text_scanned);
+        bt_open_scan = findViewById(R.id.bt_open_scan);
+        tv_scanned_info = findViewById(R.id.tv_scanned_info);
+        gif_scanner_check = findViewById(R.id.gif_scanner_check);
 
 
-        ////////////////// BOTAO PARA ASSIGNAR O EQUIPAMENTO A OUTRO EQUIPAMENTO //////////////////
-        bt_assign_scan.setOnClickListener(new View.OnClickListener() {
+        ////////////////////////////ABRE O EQUIPAMENTO DO ID QUE FEZ SCAN///////////////////////
+        bt_open_scan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                DocumentReference equipRef = db.collection("Equipments").document(docId);
+                String path = scannedText.getText().toString();
 
-                String assign = scannedText.getText().toString();
-
-                DocumentReference assignRef = db.collection("Equipments").document(assign);
-                assignRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        Equipments room = documentSnapshot.toObject(Equipments.class);
-                        String roomId = room.getRoomId();
-                        String assignedName = room.getName();
-                        equipRef.update("roomId",roomId);
-                        equipRef.update("assign", assignedName);
-                        Toast.makeText(ScannerAssignActivity.this, "Equipamento associado com sucesso.", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-                Intent i = new Intent(ScannerAssignActivity.this, EquipmentsDataActivity.class);
-                i.putExtra("path", docId);
+                Intent i = new Intent(ScannerActivity.this, EquipmentsDataActivity.class);
+                i.putExtra("path", path);
                 startActivity(i);
             }
         });
-        ////////////////// END  BOTAO PARA ASSIGNAR O EQUIPAMENTO A OUTRO EQUIPAMENTO //////////////////
+        ////////////////////////END ABRE O EQUIPAMENTO DO ID QUE FEZ SCAN///////////////////////
 
         //INICIA O DETECTOR DE QR E A CAMARA
         barcodeDetector = new BarcodeDetector.Builder(getApplicationContext()).setBarcodeFormats(Barcode.QR_CODE).build();
-        cameraSource = new CameraSource.Builder(getApplicationContext(), barcodeDetector).setRequestedPreviewSize(640, 480).build();
+        cameraSource = new CameraSource.Builder(getApplicationContext(), barcodeDetector).setRequestedPreviewSize(1280, 960).build();
 
         ////////////////////////////ASSOCIA A CAMARA AO SURFACE VIEW, CASO TENHA AUTORIZAÇÃO/////////////////////
         surfaceView.getHolder().addCallback(new SurfaceHolder.Callback() {
@@ -151,21 +124,22 @@ public class ScannerAssignActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             scannedText.setText(qrcode.valueAt(0).displayValue);
-                            tv_assign_scanned_info.setText("QR Code lido com sucesso.");
-                            bt_assign_scan.setVisibility(View.VISIBLE);
-                            gif_scanner_assign_check.setVisibility(View.VISIBLE);
+                            tv_scanned_info.setText("QR Code lido com sucesso.");
+                            bt_open_scan.setVisibility(View.VISIBLE);
+                            gif_scanner_check.setVisibility(View.VISIBLE);
                         }
                     });
                 }
             }
         });
         ////////////////// END DETETOR DO QR ////////////////////////////
+
     }
 
     ///////////////////////////////// VERIFICA PERMISSÃO DA APP À CAMARA ///////////////////////////
     public void checkPermission(String permission, int requestCode) {
-        if (ContextCompat.checkSelfPermission(ScannerAssignActivity.this, permission) == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(ScannerAssignActivity.this, new String[]{permission}, requestCode);
+        if (ContextCompat.checkSelfPermission(ScannerActivity.this, permission) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(ScannerActivity.this, new String[]{permission}, requestCode);
         } else {
             Toast.makeText(this, "Já efetuada a permissão.", Toast.LENGTH_SHORT).show();
         }

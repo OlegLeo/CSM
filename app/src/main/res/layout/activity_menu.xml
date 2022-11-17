@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/gradient_dark"
-    tools:context=".MenuActivity">
+    tools:context=".views.MenuActivity">
 
     <ImageView
         android:layout_width="350dp"

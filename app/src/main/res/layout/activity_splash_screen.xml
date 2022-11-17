@@ -7,7 +7,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:background="@drawable/gradient_background"
-    tools:context=".SplashScreenActivity">
+    tools:context=".views.SplashScreenActivity">
 
     <!--<ImageView
         android:layout_width="350dp"

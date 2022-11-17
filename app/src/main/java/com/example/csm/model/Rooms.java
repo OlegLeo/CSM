@@ -1,4 +1,4 @@
-package com.example.csm;
+package com.example.csm.model;
 
 public class Rooms {
     String roomName, designation;

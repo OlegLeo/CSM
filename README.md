@@ -10,7 +10,7 @@ This project was a simulation of the work market context, because there was a cl
 
 The application was made in Android Studio, we used Java as programming language and Firebase for the database.
 
-The application allows the user to visualize all the stock that was registered in the training school (Monitors, PC's, Keyboards, Mouses, Tables, Chairs, etc...), insert a new one, remove or edit it, move the equipment from one room to another and also a backoffice user management.
+The application allows the user to visualize all the stock that was registered in our training school (Monitors, PC's, Keyboards, Mouses, Tables, Chairs, etc...), insert a new one, remove or edit it, move the equipment from one room to another and also a backoffice user management.
 
 The authentication is done with email and a password, with the possibility of password recovery and user management by the backoffice.
 

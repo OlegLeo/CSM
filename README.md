@@ -18,5 +18,5 @@ One of the features that we thought to implement was the QR code, being one of t
 
 It was a very interesting project to eleborate with my colleagues and I think it went very well. We got a final grade of 19/20.
 
-Translated with www.DeepL.com/Translator (free version)
+
 
